@@ -1,0 +1,32 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+  shadowDatabaseUrl    = env("SHADOW_DATA_BASE_URL")
+}
+
+model Job {
+  id         String   @id @default(cuid())
+  brand      String
+  company    String
+  job_title  String
+  new        Boolean
+  period     String
+  created_at DateTime @default(now())
+  Skills     Skill[]
+}
+
+model Skill {
+  id    String  @id @default(cuid())
+  text  String
+  Job   Job?    @relation(fields: [jobId], references: [id])
+  jobId String?
+}

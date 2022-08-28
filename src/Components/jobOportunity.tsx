@@ -45,7 +45,7 @@ export function JobOportunity({ job, setSearch, search }: Props) {
         >
           <div className="flex justify-start items-center  space-x-4">
             <>
-              <p className="text font-bold text-[12px] text-desaturatedDarkCyan">
+              <p className="text font-bold text-[12px] md:text-[14px] text-desaturatedDarkCyan">
                 {job.company}
               </p>
               <div className="flex space-x-2">

@@ -31,7 +31,7 @@ const Home: NextPage = () => {
           alt="bg-header image"
         />
       </div>
-      <div className=" absolute left-0 right-0 mr-auto ml-auto w-[95%] md:[80%] top-[5rem] break-words  bg-white rounded-lg flex flex-col space-y-2 justify-start items-start  px-3 py-2">
+      <div className=" absolute left-0 right-0 mr-auto ml-auto w-[95%] md:[80%] top-[4.75rem] break-words  bg-white rounded-lg flex flex-col space-y-2 justify-start items-start  px-3 py-2">
         <div className="flex space-x-2 w-[100%] mr-5 break-before-right">
           <form
             onSubmit={(e) => {
@@ -88,7 +88,7 @@ const Home: NextPage = () => {
         </div>
       </div>
       <div
-        className={`flex flex-col flex-1 min-h-screen space-y-10 py-5 w-[95%] md:[80%] m-auto my-12 md:my-8 ${
+        className={`flex flex-col flex-1 min-h-screen space-y-10 md:space-y-5 py-5 w-[95%] md:[80%] m-auto my-12 md:my-8 ${
           search.length > 0 ? "my-[6.5rem] md:my-[3rem]" : null
         } `}
       >

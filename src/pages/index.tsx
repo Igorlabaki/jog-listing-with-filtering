@@ -88,8 +88,8 @@ const Home: NextPage = () => {
         </div>
       </div>
       <div
-        className={`flex flex-col flex-1 min-h-screen space-y-10 md:space-y-5 py-5 w-[95%] md:[80%] m-auto my-4  md:my-0${
-          search.length > 0 ? "my-[6.5rem] md:my-[3rem]" : null
+        className={`flex flex-col flex-1 min-h-screen space-y-10 md:space-y-5 py-5 md:py-0 w-[95%] md:[80%] m-auto my-4  md:my-0${
+          search.length > 0 ? "my-[6.5rem]" : null
         } `}
       >
         {filterNoResults.map((job: any, i) => {

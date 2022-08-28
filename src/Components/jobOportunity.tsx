@@ -40,7 +40,9 @@ export function JobOportunity({ job, setSearch, search }: Props) {
         <div className="h-12 w-12 md:h-16 md:w-16 mr-5 absolute bottom-[4.55rem] md:relative md:bottom-0">
           <img src={job.image} alt="brand" className="h-full w-full" />
         </div>
-        <div className={`space-y-1 pt-3`}>
+        <div
+          className={`space-y-1 pt-3 md:pt-0 flex flex-col justify-start items-start`}
+        >
           <div className="flex justify-start items-center  space-x-4">
             <>
               <p className="text font-bold text-[12px] text-desaturatedDarkCyan">

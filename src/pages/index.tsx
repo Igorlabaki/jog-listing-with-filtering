@@ -31,8 +31,8 @@ const Home: NextPage = () => {
           alt="bg-header image"
         />
       </div>
-      <div className=" absolute left-0 right-0 mr-auto ml-auto w-[80%] top-[5rem] bg-white rounded-lg flex justify-between items-center h-10 px-3">
-        <div className="flex space-x-2 w-[100%] mr-5">
+      <div className=" absolute left-0 right-0 mr-auto ml-auto w-[95%] md:[80%] top-[5rem]  bg-white rounded-lg flex justify-between items-center  px-3 py-2">
+        <div className="flex space-x-2 w-[100%] mr-5 break-before-right">
           {search?.map((skill: any, i: number) => {
             return (
               <div
@@ -84,7 +84,7 @@ const Home: NextPage = () => {
           Clear
         </p>
       </div>
-      <div className="flex flex-col  flex-1 min-h-screen space-y-5 px-[10%] py-5 w-[100%] mt-5">
+      <div className="flex flex-col  flex-1 min-h-screen space-y-10 py-5 w-[95%] md:[80%] m-auto my-9">
         {filterNoResults.map((job: any, i) => {
           return (
             <JobOportunity

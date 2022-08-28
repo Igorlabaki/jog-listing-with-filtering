@@ -32,15 +32,15 @@ export function JobOportunity({ job, setSearch, search }: Props) {
 
   return (
     <div
-      className={`bg-white w-full rounded-[3px] p-[17px] flex justify-between
+      className={`bg-white w-full rounded-[3px] p-[17px] flex flex-col md:flex-row justify-between
         ${job.featured ? "border-l-4 border-desaturatedDarkCyan" : null}
     `}
     >
-      <div className="flex">
-        <div className="h-16 w-16 mr-5">
+      <div className="flex relative">
+        <div className="h-12 w-12 md:h-16 md:w-16 mr-5 absolute bottom-[4.55rem] md:relative md:bottom-0">
           <img src={job.image} alt="brand" className="h-full w-full" />
         </div>
-        <div className={`space-y-1`}>
+        <div className={`space-y-1 pt-3`}>
           <div className="flex justify-start items-center  space-x-4">
             <>
               <p className="text font-bold text-[12px] text-desaturatedDarkCyan">
@@ -60,7 +60,8 @@ export function JobOportunity({ job, setSearch, search }: Props) {
           </div>
         </div>
       </div>
-      <div className="flex text-[12px] space-x-2 text-desaturatedDarkCyan font-bold">
+      <hr className="h2 my-2" />
+      <div className="flex text-[12px] space-x-2 text-desaturatedDarkCyan font-bold break-words">
         {job.skills.map((skill, i) => {
           return (
             <div key={i}>

@@ -89,7 +89,7 @@ const Home: NextPage = () => {
       </div>
       <div
         className={`flex flex-col flex-1 min-h-screen space-y-10 py-5 w-[95%] md:[80%] m-auto my-12 md:my-8 ${
-          search.length > 0 ? "my-16" : null
+          search.length > 0 ? "my-[4rem] md:my-[3rem]" : null
         } `}
       >
         {filterNoResults.map((job: any, i) => {

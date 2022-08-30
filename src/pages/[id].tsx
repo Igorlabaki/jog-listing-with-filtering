@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { LayoutComponent } from "../Components/util/layout";
 import useJobContext from "../hook/useJobContext";
@@ -29,7 +29,7 @@ export default function JobId() {
             <h2 className="text-justify font-bold text-3xl text-desaturatedDarkCyan">
               {job?.company}
             </h2>
-            <div className="flex h-5 justify-center items-center space-x-1">
+            <div className="flex h-15 justify-center items-center space-x-1">
               {handleNew()}
               {handleFeatured()}
             </div>
@@ -59,6 +59,7 @@ export default function JobId() {
                 <div key={i}>
                   <p
                     className={`  p-1 shadow-md rounded-sm bg-desaturatedDarkCyan text-white cursor-pointer max-w-[100px] flex-wrap`}
+                    onClick={() => {}}
                   >
                     {skill}
                   </p>

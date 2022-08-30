@@ -53,7 +53,10 @@ export function JobContextProvider({ children }: JobContextProvider) {
   function handleNew() {
     if (job?.new) {
       return (
-        <div className="bg-desaturatedDarkCyan flex justify-center items-center px-2 text-white text-[10px] font-bold rounded-full">
+        <div
+          className="bg-desaturatedDarkCyan flex justify-center
+         items-center px-2 text-white text-[10px] md:text-[13px] font-bold rounded-full"
+        >
           <p>NEW!</p>
         </div>
       );
@@ -63,7 +66,7 @@ export function JobContextProvider({ children }: JobContextProvider) {
   function handleFeatured() {
     if (job?.featured) {
       return (
-        <div className="bg-veryDarkGraishCyan flex justify-center items-center px-2 text-white text-[10px] font-bold rounded-full">
+        <div className="bg-veryDarkGraishCyan flex  md:text-[13px] justify-center items-center px-2 text-white text-[10px] font-bold rounded-full">
           <p>FEATURED</p>
         </div>
       );

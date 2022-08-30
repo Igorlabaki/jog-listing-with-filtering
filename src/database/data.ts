@@ -1,7 +1,7 @@
 
 export const listJobs = [
     {
-        id:1,
+        id:'1',
         company: ' Photosnap',
         job_title: 'Senior Frontend Developer',
         create_at: '1d ago',
@@ -20,7 +20,7 @@ export const listJobs = [
         ]
     },
     {
-        id:2,
+        id:'2',
         company: ' Manage',
         job_title: 'Fullstack Developer',
         create_at: '1d ago',
@@ -38,7 +38,7 @@ export const listJobs = [
         ]
     },
     {
-        id:3,
+        id:'3',
         company: ' Account',
         job_title: 'Junior Frontend Developer',
         create_at: '2d ago',
@@ -54,7 +54,7 @@ export const listJobs = [
         ]
     },
     {
-        id:4,
+        id:'4',
         company: ' MyHome',
         job_title: 'Junior Frontend Developer',
         create_at: '5d ago',
@@ -72,7 +72,7 @@ export const listJobs = [
         ]
     },
     {
-        id:5,
+        id:'5',
         company: ' Loop Studios',
         job_title: 'Software Engineer',
         create_at: '1w  ago',
@@ -91,7 +91,7 @@ export const listJobs = [
         ]
     },
     {
-        id:6,
+        id:'6',
         company: ' FaceIt',
         job_title: 'Junior Backend Developer',
         create_at: '2w ago',
@@ -110,7 +110,7 @@ export const listJobs = [
         ]
     },
     {
-        id:7,
+        id:'7',
         company: ' Shortly',
         job_title: 'Junior Developer',
         create_at: '2w ago',
@@ -128,7 +128,7 @@ export const listJobs = [
         ]
     },
     {
-        id:8,
+        id:'8',
         company: ' Insure',
         job_title: 'Junior Frontend Developer',
         create_at: '3w ago',
@@ -142,11 +142,11 @@ export const listJobs = [
             'Junior',
             'Full Time',
             'JavaScript',
-            'Vue'
+            'Vue',
         ]
     },
     {
-        id:9,
+        id:'9',
         company: ' Eyecom Co.',
         job_title: 'Junior Frontend Developer',
         create_at: '3w ago',
@@ -164,7 +164,7 @@ export const listJobs = [
         ]
     },
     {
-        id:10,
+        id:'10',
         company: ' The Air Filter Company',
         job_title: 'Junior Frontend Developer',
         create_at: '3w ago',

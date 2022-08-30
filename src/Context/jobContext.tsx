@@ -12,7 +12,7 @@ interface JobContext {
   listOrder?: any;
   handleFeatured?: any;
   handleNew?: any;
-  selectJobId: (id: string) => any;
+  selectJobId: (id: any) => any;
 }
 
 const initialState: JobContext = {

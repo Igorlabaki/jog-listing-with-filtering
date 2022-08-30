@@ -11,9 +11,7 @@ export default function JobId() {
 
   const { selectJobId, job, handleFeatured, handleNew } = useJobContext();
 
-  useEffect(() => {
-    selectJobId(id?.toString());
-  }, []);
+  useEffect(() => selectJobId(id?.toString()), []);
 
   return (
     <LayoutComponent>

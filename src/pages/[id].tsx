@@ -52,13 +52,13 @@ export default function JobId() {
             similique. Voluptatem dignissimos minus earum?
           </p>
           <hr className="h-3 my-2" />
-          <div className="flex justify-start items-center text-[12px] space-x-2 text-desaturatedDarkCyan font-bold break-words">
+          <div className="flex justify-start items-center text-[12px] gap-x-2 text-desaturatedDarkCyan font-bold flex-wrap gap-y-2">
             <p>Skills required:</p>
             {job?.skills?.map((skill, i) => {
               return (
                 <div key={i}>
                   <p
-                    className={`  p-1 shadow-md rounded-sm bg-desaturatedDarkCyan text-white cursor-pointer max-w-[100px] flex-wrap`}
+                    className={` min-w-[70px] p-1 shadow-md rounded-sm bg-desaturatedDarkCyan text-white cursor-pointer max-w-[100px] flex-wrap`}
                     onClick={() => {}}
                   >
                     {skill}

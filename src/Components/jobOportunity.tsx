@@ -81,12 +81,12 @@ export function JobOportunity({ job, setSearch, search }: Props) {
         </div>
       </div>
       <hr className="h2 my-2" />
-      <div className="flex text-[12px] space-x-2 text-desaturatedDarkCyan font-bold break-words">
+      <div className="flex text-[12px] gap-x-2 text-desaturatedDarkCyan font-bold flex-wrap gap-y-2">
         {job?.skills?.map((skill, i) => {
           return (
             <div key={i}>
               <p
-                className={`bg-LightGrayishCyan  p-1 shadow-md rounded-sm hover:bg-desaturatedDarkCyan hover:text-white cursor-pointer`}
+                className={`bg-LightGrayishCyan  min-w-[70px]  p-1 shadow-md rounded-sm hover:bg-desaturatedDarkCyan hover:text-white cursor-pointer`}
                 onClick={() => {
                   if (!search) {
                     setSearch(() => [skill]);

@@ -34,7 +34,7 @@ export default function JobId() {
               {handleFeatured()}
             </div>
           </div>
-          <h3 className="text-justify  font-semibold text-2xl">
+          <h3 className="text-justify  font-semibold text-2xl text-black">
             {job?.job_title}
           </h3>
           <div className="flex space-x-2 text-[12px] font-semibold text-gray-500">
@@ -45,7 +45,7 @@ export default function JobId() {
           <p className="text-justify text-sm mt-4 font-semibold">
             About the job:
           </p>
-          <p className="text-justify">
+          <p className="text-justify text-black">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae iste
             sapiente, commodi, nobis animi, vitae perferendis eligendi optio
             culpa consequatur aspernatur dolorum quibusdam provident dolor

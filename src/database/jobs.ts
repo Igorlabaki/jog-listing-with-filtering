@@ -106,7 +106,6 @@ export const listJobs = [
             'Ruby',
             'Frontend',
             'Full Time',
-            'Junior'
         ]
     },
     {

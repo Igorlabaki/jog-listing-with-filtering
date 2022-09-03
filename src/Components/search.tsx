@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { RiCloseFill } from "react-icons/ri";
 import useJobContext from "../hook/useJobContext";
+import useSearchContext from "../hook/useSearchSContext";
 
 export function SearchComponent() {
-  const { search, setSearch } = useJobContext();
+  const { search, setSearch } = useSearchContext();
   const [searchText, setSearchText] = useState<string>("");
   return (
     <div className="mr-auto mt-[-1.5rem] ml-aut top-[4.55rem] break-words  bg-white rounded-lg flex flex-col space-y-2 justify-start items-start  px-3 py-2">
@@ -27,7 +28,10 @@ export function SearchComponent() {
             type="text"
             className="bg-LightGrayishCyan outline-none rounded-md w-[100%] px-2 h-6 text-sm font-semibold text-desaturatedDarkCyan"
             value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
+            onChange={(e) => {
+              e.preventDefault();
+              setSearchText(e.target.value);
+            }}
           />
 
           <p

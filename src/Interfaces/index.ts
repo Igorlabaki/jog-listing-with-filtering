@@ -8,5 +8,18 @@ export interface Job{
     image: string,
     new: boolean,
     featured: boolean,
-    skills: Array<string>[]
+    skills: string[]
 }
+
+export interface User{
+    id: string;
+    name: string;
+    email: string;
+    avatar: string;
+    skills: string[];
+    periods: string[];
+    levels: string[];
+    areas: string[];
+}
+
+  

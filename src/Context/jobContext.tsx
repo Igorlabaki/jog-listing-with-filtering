@@ -1,13 +1,12 @@
 import { createContext, Dispatch, ReactNode, useState } from "react";
-import { listJobs } from "../database/data";
+import { listJobs } from "../database/jobs";
+import useSearchContext from "../hook/useSearchSContext";
 import { Job } from "../Interfaces";
 interface JobContextProvider {
   children: ReactNode;
 }
 interface JobContext {
-  search: any;
   job?: Job;
-  setSearch?: any;
   filterNoResults?: any;
   listOrder?: any;
   handleFeatured?: any;
@@ -16,14 +15,13 @@ interface JobContext {
 }
 
 const initialState: JobContext = {
-  search: [],
   selectJobId: () => {},
 };
 
 export const JobContext = createContext<JobContext>(initialState);
 
 export function JobContextProvider({ children }: JobContextProvider) {
-  const [search, setSearch] = useState<any>([]);
+  const { search, setSearch } = useSearchContext();
   const [job, setJob] = useState<any>([]);
 
   const listOrder = listJobs.map((job) => {
@@ -31,18 +29,17 @@ export function JobContextProvider({ children }: JobContextProvider) {
     return job;
   });
 
-  const filterNoResults = listOrder.filter((item) => {
+  const filterNoResults = listOrder.filter((job) => {
     const list = [];
-
     for (let index = 0; index < search.length; index++) {
-      const filterCase = item.skills.map((item) => item.toLocaleUpperCase());
+      const filterCase = job.skills.map((job) => job.toLocaleUpperCase());
       if (filterCase.includes(search[index].toLocaleUpperCase())) {
         list.push(true);
       } else {
         list.push(false);
       }
     }
-    return list.every((item) => item === true);
+    return list.every((job) => job === true);
   });
 
   function selectJobId(id: string) {
@@ -76,8 +73,6 @@ export function JobContextProvider({ children }: JobContextProvider) {
   return (
     <JobContext.Provider
       value={{
-        search,
-        setSearch,
         filterNoResults,
         selectJobId,
         job,

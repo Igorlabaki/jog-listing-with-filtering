@@ -2,18 +2,18 @@ import { Console } from "console";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { Dispatch, SetStateAction } from "react";
-import useJobContext from "../hook/useJobContext";
-import { Job } from "../Interfaces";
+import useJobContext from "../../hook/useJobContext";
+import useSearchContext from "../../hook/useSearchSContext";
+import { Job } from "../../Interfaces";
+import SkillsComponent from "../util/skills";
 
 interface Props {
   job: Job;
-  search: any;
-  setSearch: any;
 }
 
-export function JobOportunity({ job, setSearch, search }: Props) {
+export function JobOportunity({ job }: Props) {
   const router = useRouter();
-
+  const { setSearch } = useSearchContext();
   function handleNew() {
     if (job.new) {
       return (
@@ -41,7 +41,13 @@ export function JobOportunity({ job, setSearch, search }: Props) {
         ${job?.featured ? "border-l-4 border-desaturatedDarkCyan" : null}
     `}
     >
-      <div className="flex relative" onClick={() => router.push(`/${job?.id}`)}>
+      <div
+        className="flex relative"
+        onClick={() => {
+          router.push(`/job/${job?.id}`);
+          setSearch(() => []);
+        }}
+      >
         <div className="h-12 w-12 cursor-pointer  md:h-16 md:w-16 mr-5 absolute bottom-[4.55rem] md:relative md:bottom-0">
           <Image
             src={job?.image}
@@ -57,7 +63,7 @@ export function JobOportunity({ job, setSearch, search }: Props) {
             <>
               <p
                 className="text cursor-pointer  font-bold text-[12px] md:text-[14px] text-desaturatedDarkCyan"
-                onClick={() => router.push(`/${job?.id}`)}
+                onClick={() => router.push(`/job/${job?.id}`)}
               >
                 {job?.company}
               </p>
@@ -69,7 +75,7 @@ export function JobOportunity({ job, setSearch, search }: Props) {
           </div>
           <p
             className="font-bold text-[15px] text-start cursor-pointer "
-            onClick={() => router.push(`/${job?.id}`)}
+            onClick={() => router.push(`/job/${job?.id}`)}
           >
             {job?.job_title}
           </p>
@@ -82,27 +88,7 @@ export function JobOportunity({ job, setSearch, search }: Props) {
       </div>
       <hr className="h2 my-2" />
       <div className="flex text-[12px] gap-x-2 text-desaturatedDarkCyan font-bold flex-wrap gap-y-2">
-        {job?.skills?.map((skill, i) => {
-          return (
-            <div key={i}>
-              <p
-                className={`bg-LightGrayishCyan  min-w-[70px]  p-1 shadow-md rounded-sm hover:bg-desaturatedDarkCyan hover:text-white cursor-pointer`}
-                onClick={() => {
-                  if (!search) {
-                    setSearch(() => [skill]);
-                  } else {
-                    if (search.find((item: string[]) => item === skill)) {
-                      return;
-                    }
-                    setSearch((prevState: any) => [...prevState, skill]);
-                  }
-                }}
-              >
-                {skill}
-              </p>
-            </div>
-          );
-        })}
+        <SkillsComponent skills={job.skills} />
       </div>
     </div>
   );

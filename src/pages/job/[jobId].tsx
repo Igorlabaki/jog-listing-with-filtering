@@ -1,21 +1,20 @@
-import Image from "next/image";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-import { LayoutComponent } from "../Components/util/layout";
-import useJobContext from "../hook/useJobContext";
+import { LayoutComponent } from "../../Components/util/layout";
+import useJobContext from "../../hook/useJobContext";
 
 export default function JobId() {
   const {
-    query: { id },
+    query: { jobId },
   } = useRouter();
 
   const { selectJobId, job, handleFeatured, handleNew } = useJobContext();
 
-  useEffect(() => selectJobId(id?.toString()), []);
+  useEffect(() => selectJobId(jobId?.toString()), []);
 
   return (
     <LayoutComponent>
-      <div className="flex flex-col md:flex-row md:mr-4 w-[100%] py-10 md:gap-4">
+      <div className="flex justify-center md:justify-start flex-col md:flex-row md:mr-4 w-[100%] py-5 px-3 rounded-md shadow-pattern md:gap-4 bg-white mt-5">
         <div className="flex md:flex-col justify-between md:justify-start md:space-y-3 items-center">
           <div className="w-[100px] h-[100px] mr-2 rounded-full shadow-lg">
             <img src={job?.image} alt="" className="h-full w-full" />
@@ -58,7 +57,7 @@ export default function JobId() {
               return (
                 <div key={i}>
                   <p
-                    className={` min-w-[70px] p-1 shadow-md rounded-sm bg-desaturatedDarkCyan text-white cursor-pointer max-w-[100px] flex-wrap`}
+                    className={` min-w-[70px] min-h-[30px]  p-1 shadow-md rounded-sm bg-desaturatedDarkCyan text-white cursor-pointer max-w-[100px] flex-wrap`}
                     onClick={() => {}}
                   >
                     {skill}

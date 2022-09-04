@@ -7,7 +7,7 @@ export function SearchComponent() {
   const { search, setSearch } = useSearchContext();
   const [searchText, setSearchText] = useState<string>("");
   return (
-    <div className="mr-auto mt-[-1.5rem] ml-aut top-[4.55rem] break-words  bg-white rounded-lg flex flex-col space-y-2 justify-start items-start  px-3 py-2">
+    <div className="mr-auto mt-[-1.5rem] ml-auto top-[4.55rem] break-words  bg-white rounded-lg flex flex-col space-y-2 justify-start items-start  px-3 py-2">
       <div className="flex space-x-2 w-[100%] mr-5 break-before-right">
         <form
           onSubmit={(e) => {

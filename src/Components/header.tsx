@@ -2,7 +2,7 @@ import React from "react";
 
 export function HeaderComponent() {
   return (
-    <div className="h-[100px] bg-desaturatedDarkCyan w-full">
+    <div className="h-[100px] bg-desaturatedDarkCyan w-full static">
       <img
         src={"/images/bg-header-desktop.svg"}
         className={`h-full w-full`}

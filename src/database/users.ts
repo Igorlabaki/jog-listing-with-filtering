@@ -70,6 +70,7 @@ export const areas = [
           "id": uuidv4(),
           "name":  faker.name.firstName() + 'Robot',
           "email":  faker.internet.email(),
+          "password": "123456",
           "avatar":createAvatar(style, {
               dataUri: true,
           }),

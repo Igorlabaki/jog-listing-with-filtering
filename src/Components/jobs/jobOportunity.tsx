@@ -36,7 +36,7 @@ export function JobOportunity({ job }: Props) {
 
   return (
     <div
-      className={`bg-white w-full rounded-[3px] p-[17px] flex flex-col md:flex-row justify-between 
+      className={`bg-white w-full rounded-[3px] p-[17px] flex flex-col lg:flex-row justify-between 
       hover:scale-[1.01] hover:shadow-md
         ${job?.featured ? "border-l-4 border-desaturatedDarkCyan" : null}
     `}

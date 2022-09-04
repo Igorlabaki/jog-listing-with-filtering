@@ -55,7 +55,6 @@ const Home: NextPage = () => {
 
   const onLogin = (data: any) => console.log(data);
   const onRegister = (data: any) => console.log(data);
-  console.log(errors);
 
   return (
     <LayoutComponent>
@@ -98,7 +97,7 @@ const Home: NextPage = () => {
             <p className="font-bold text-desaturatedDarkCyan text-4xl">
               Sign in
             </p>
-            <form onSubmit={handleSubmit(onLogin)} className={"w-[80%]"}>
+            <form onSubmit={handleSubmit(() => onLogin)} className={"w-[80%]"}>
               {errors?.email || errors?.password ? (
                 <div>
                   <p>{}</p>
@@ -144,7 +143,6 @@ const Home: NextPage = () => {
                 <Button
                   type="submit"
                   title="Confirm"
-                  disabled={errors ? true : false}
                   className={`
                     w-[100%] bg-desaturatedDarkCyan shadow-pattern cursor-pointer
                     hover:shadow-none hover:brightness-110  text-white text-[1.1rem] 

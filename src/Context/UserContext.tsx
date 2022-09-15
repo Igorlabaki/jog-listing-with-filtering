@@ -1,13 +1,12 @@
 import { createContext, Dispatch, ReactNode, useEffect, useState } from "react";
 import { users } from "../database/users";
 import useSearchContext from "../hook/useSearchSContext";
-import { User } from "../Interfaces";
 
 interface UserContextProvider {
   children: ReactNode;
 }
 interface UserContext {
-  user?: User;
+  user?: any;
   userList?: any;
   filterUserResults?: any;
   selectUserById: (id: any) => any;
@@ -21,15 +20,15 @@ export const UserContext = createContext<UserContext>(initialState);
 
 export function UserContextProvider({ children }: UserContextProvider) {
   const [userList, setUsersList] = useState<any>();
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<any>();
   const { search, setSearch } = useSearchContext();
 
-  const listOrder = users.map((user: User) => {
+  const listOrder = users.map((user: any) => {
     user.skills.sort();
     return user;
   });
 
-  const filterUserResults = listOrder.filter((user: User) => {
+  const filterUserResults = listOrder.filter((user: any) => {
     const list = [];
     for (let index = 0; index < search.length; index++) {
       const filterCase = user.skills.map((skill: string) =>
@@ -46,7 +45,7 @@ export function UserContextProvider({ children }: UserContextProvider) {
 
   function selectUserById(userId: string) {
     const user = users.find((user) => user.id === userId);
-    setUser(user);
+    setUser(() => user);
     return;
   }
 

@@ -8,7 +8,7 @@ generator client {
 
 datasource db {
   provider             = "mysql"
-  url                  = "mysql://jrzwbdpu8l9h:pscale_pw_SWpSSGxfyJXExEV7g_8p833xx9-Y6Tu-Z1gdwPe4vvA@7ys1cogo0zrt.us-east-1.psdb.cloud/job-list-filter?sslaccept=strict"
+  url                  = env("DATABASE_URL")
   referentialIntegrity = "prisma"
 }
 

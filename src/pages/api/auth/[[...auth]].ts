@@ -70,7 +70,7 @@ export default async function Auth(req:NextApiRequest,resp: NextApiResponse){
 
         const {id,avatar,bio,area,email,level,username,skillsList} = req.body
 
-         if(id && avatar && bio){
+         if(id && email && level){
              const user = await prisma.user.update({
                  where:{
                      id: id
@@ -126,7 +126,7 @@ export default async function Auth(req:NextApiRequest,resp: NextApiResponse){
                  return
              })
          }
-
+         console.log('porra')
         return resp.status(200)
     }
 }

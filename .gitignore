@@ -34,3 +34,60 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+        onSubmit={(e) => {
+                e.preventDefault();
+                handleSubmit(onSubmit);
+              }}
+              className={"w-[80%]"}
+            >
+              {errors?.email || errors?.password ? (
+                <div>
+                  <p>{}</p>
+                  <p>{}</p>
+                </div>
+              ) : null}
+              <div className="space-y-3">
+                <div className="flex flex-col mt-10 ">
+                  <input
+                    type="email"
+                    placeholder="Enter your email..."
+                    {...register("email")}
+                    className={`${
+                      errors.email ? "border-red-900" : null
+                    } outline-none shadow-md focus:bg-LightGrayishCyan  p-2 rounded-md bg-white`}
+                  />
+                </div>
+                <div>
+                  <input
+                    type="password"
+                    placeholder="Enter your password..."
+                    {...register("password")}
+                    className={`${errors.password ? "border-error" : null} 
+                    outline-none focus:bg-LightGrayishCyan p-2 rounded-md bg-bg-gray w-[100%] shadow-lg border-1`}
+                  />
+                </div>
+              </div>
+              <div className="mb-3">
+                <div className="flex space-x-1 my-2">
+                  <p className="text-[13px]  font-semibold text-veryDarkGraishCyan">
+                    Are you new here?
+                  </p>
+                  <Button
+                    type="submit"
+                    title="Sign up."
+                    className="text-[13px] font-semibold text-desaturatedDarkCyan animate-pulse hover:font-bold"
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Button
+                  type="submit"
+                  title="Confirm"
+                  className={`
+                    w-[100%] bg-desaturatedDarkCyan shadow-pattern cursor-pointer
+                    hover:shadow-none hover:brightness-110  text-white text-[1.1rem] 
+                    font-semibold  flex justify-center items-center rounded-lg space-x-2 p-2`}
+                />
+              </div>

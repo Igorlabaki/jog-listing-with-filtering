@@ -5,7 +5,7 @@ export interface propsAuthModal {
   children: ReactNode;
 }
 
-export function ModalAuthComponent({ onClose, children }: propsAuthModal) {
+export function ChangePhotoModal({ onClose, children }: propsAuthModal) {
   const handleOutsideClick = (e: any) => {
     if (e.target.id) onClose();
   };
@@ -22,8 +22,8 @@ export function ModalAuthComponent({ onClose, children }: propsAuthModal) {
           id="internal"
           className={`
             flex justify-center items-center md:rounded-[1.25rem] flex-col
-            z-[60] border-none absolute top-0 right-0 w-[80%] h-screen left-0 
-            md:w-[400px] m-auto
+            z-[60] border-none absolute top-0 right-0 w-screen h-screen left-0 
+            md:w-[400px] md:m-auto
             rounded-sm overflow-hidden
             `}
         >

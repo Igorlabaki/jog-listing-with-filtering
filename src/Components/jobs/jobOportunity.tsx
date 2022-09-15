@@ -1,7 +1,10 @@
 import { Console } from "console";
+import { GetServerSideProps } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { Dispatch, SetStateAction } from "react";
+import { parseCookies } from "nookies";
+import React, { Dispatch, SetStateAction, useState } from "react";
+import useAuthContext from "../../hook/useAuthContext";
 import useJobContext from "../../hook/useJobContext";
 import useSearchContext from "../../hook/useSearchSContext";
 import { Job } from "../../Interfaces";
@@ -9,11 +12,14 @@ import SkillsComponent from "../util/skills";
 
 interface Props {
   job: Job;
+  token?: any;
 }
 
 export function JobOportunity({ job }: Props) {
   const router = useRouter();
   const { setSearch } = useSearchContext();
+  const { handleOpenAuthModal, session } = useAuthContext();
+
   function handleNew() {
     if (job.new) {
       return (
@@ -34,6 +40,14 @@ export function JobOportunity({ job }: Props) {
     }
   }
 
+  function handleRedirectAuthFilter() {
+    if (session?.sessionToken) {
+      router.push(`/job/${job.id}`);
+    } else {
+      handleOpenAuthModal();
+    }
+  }
+
   return (
     <div
       className={`bg-white w-full rounded-[3px] p-[17px] flex flex-col lg:flex-row justify-between 
@@ -41,19 +55,16 @@ export function JobOportunity({ job }: Props) {
         ${job?.featured ? "border-l-4 border-desaturatedDarkCyan" : null}
     `}
     >
-      <div
-        className="flex relative"
-        onClick={() => {
-          router.push(`/job/${job?.id}`);
-          setSearch(() => []);
-        }}
-      >
+      <div className="flex relative" onClick={() => {}}>
         <div className="h-12 w-12 cursor-pointer  md:h-16 md:w-16 mr-5 absolute bottom-[4.55rem] md:relative md:bottom-0">
           <Image
             src={job?.image}
             alt="brand"
             className="h-full w-full"
             layout="fill"
+            onClick={() => {
+              handleRedirectAuthFilter();
+            }}
           />
         </div>
         <div
@@ -63,7 +74,9 @@ export function JobOportunity({ job }: Props) {
             <>
               <p
                 className="text cursor-pointer  font-bold text-[12px] md:text-[14px] text-desaturatedDarkCyan"
-                onClick={() => router.push(`/job/${job?.id}`)}
+                onClick={() => {
+                  handleRedirectAuthFilter();
+                }}
               >
                 {job?.company}
               </p>
@@ -75,11 +88,13 @@ export function JobOportunity({ job }: Props) {
           </div>
           <p
             className="font-bold text-[15px] text-start cursor-pointer "
-            onClick={() => router.push(`/job/${job?.id}`)}
+            onClick={() => {
+              handleRedirectAuthFilter();
+            }}
           >
             {job?.job_title}
           </p>
-          <div className="flex space-x-3 text-[12px] text-darkGrayishYan font-semibolds">
+          <div className="flex space-x-3 text-[12px] text-darkGrayishYan font-semibold">
             <p>{job?.create_at}</p>
             <p>{job?.period}</p>
             <p>{job?.region}</p>

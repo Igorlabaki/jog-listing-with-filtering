@@ -1,6 +1,10 @@
+import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
+import { parseCookies } from "nookies";
 import React, { useEffect } from "react";
+import { RiArrowLeftSLine } from "react-icons/ri";
 import { LayoutComponent } from "../../Components/util/layout";
+import useAuthContext from "../../hook/useAuthContext";
 import useJobContext from "../../hook/useJobContext";
 
 export default function JobId() {
@@ -9,11 +13,33 @@ export default function JobId() {
   } = useRouter();
 
   const { selectJobId, job, handleFeatured, handleNew } = useJobContext();
-
+  const { authUser } = useAuthContext();
+  const router = useRouter();
   useEffect(() => selectJobId(jobId?.toString()), []);
+
+  // const skillsLength = job?.skills?.length || 0;
+  // const matchSkills = job?.skills.?filter((jobSkill) => {
+  //   const validateSkill = authUser?.skills?.find((userSkill) => {
+  //     return userSkill === jobSkill;
+  //   });
+  //   return validateSkill;
+  // });
+
+  // console.log(authUser);
+  // console.log(matchSkills);
+  // console.log(authUser?.skills);
 
   return (
     <LayoutComponent>
+      <div
+        className="flex justify-start items-center gap-1 mt-2"
+        onClick={() => router.push("/")}
+      >
+        <RiArrowLeftSLine
+          size={25}
+          className={"text-desaturatedDarkCyan cursor-pointer "}
+        />
+      </div>
       <div className="flex justify-center md:justify-start flex-col md:flex-row md:mr-4 w-[100%] py-5 px-3 rounded-md shadow-pattern md:gap-4 bg-white mt-5">
         <div className="flex md:flex-col justify-between md:justify-start md:space-y-3 items-center">
           <div className="w-[100px] h-[100px] mr-2 rounded-full shadow-lg">
@@ -68,6 +94,26 @@ export default function JobId() {
           </div>
         </div>
       </div>
+      <div className="h-6 w-full bg-white mt-10 flex flex-col justify-center items-start px-3 rounded-lg py-5 pb-10">
+        <p className="text-desaturatedDarkCyan text-lg font-bold ">Match:</p>
+      </div>
     </LayoutComponent>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { ["userToken"]: token } = parseCookies(ctx);
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};

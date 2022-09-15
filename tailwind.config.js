@@ -15,7 +15,36 @@ module.exports = {
       },
       boxShadow: {
         'pattern': '0px 8px 18px 12px rgba(0,0,0,0.16)',
-      }
+        'isadora': '0px 11px 18px 4px rgba(0,0,0,0.39);',
+      },
+      keyframes: {
+        openEffect: {
+          '0%': { opacity: 0 },
+          '25%': { opacity: 0.25 },
+          '50%': { opacity: 0.5 },
+          '75%': { opacity: 0.75 },
+          '100%': { opacity: 1 },
+        },
+        movePhotoUp: {
+          '0%': {opacity : 0 },
+          '25%': { opacity: 0.25 },
+          '50%': { opacity: 0.5 },
+          '75%': { opacity: 0.75 },
+          '100%': { opacity: 1 },
+        },
+        closeEffect: {
+          '0%': { opacity: 1 },
+          '25%': { opacity: 0.75 },
+          '50%': { opacity: 0.5 },
+          '75%': { opacity: 0.25 },
+          '100%': { opacity: 0 },
+        },
+        },
+        animation: {
+        'openMenu': 'openEffect .5s linear',
+        'closeMenu': 'closeEffect .5s linear',
+        'closeErroAuth': 'closeEffect 2s linear',
+        }, 
     },
   },
   plugins: [],

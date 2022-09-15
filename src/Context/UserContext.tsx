@@ -29,7 +29,7 @@ export function UserContextProvider({ children }: UserContextProvider) {
     return user;
   });
 
-  const filterUserResults = listOrder.filter((user) => {
+  const filterUserResults = listOrder.filter((user: User) => {
     const list = [];
     for (let index = 0; index < search.length; index++) {
       const filterCase = user.skills.map((skill: string) =>

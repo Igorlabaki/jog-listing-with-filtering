@@ -25,6 +25,7 @@ export function UserContextProvider({ children }: UserContextProvider) {
 
   const listOrder = users.map((user: any) => {
     user.skills.sort();
+    console.log("j");
     return user;
   });
 

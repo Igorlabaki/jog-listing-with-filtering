@@ -11,7 +11,8 @@ module.exports = {
         'veryDarkGraishCyan': 'hsl(180, 14%, 20%)',
       },
       fontFamily: {
-        'league-spartan': ['"League Spartan"', 'sans-serif']
+        'league-spartan': ['"League Spartan"', 'sans-serif'],
+        'heebo': ['Heebo', 'sans-serif']
       },
       boxShadow: {
         'pattern': '0px 8px 18px 12px rgba(0,0,0,0.16)',

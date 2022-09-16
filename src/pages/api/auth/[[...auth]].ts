@@ -1,5 +1,7 @@
+import { UsersSkills } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from '../../../../lib/prisma'
+import SelectItemsComponent from "../../../Components/util/selectItems";
 
 export default async function Auth(req:NextApiRequest,resp: NextApiResponse){
 
@@ -94,39 +96,89 @@ export default async function Auth(req:NextApiRequest,resp: NextApiResponse){
              return resp.status(200).json(user)
          }
 
+         if(avatar){
+            const user = await prisma.user.update({
+                where:{
+                    id: id
+                },
+                data:{
+                    avatar: avatar,
+                },
+                include:{
+                    Skills: {
+                        include:{
+                            skill: true
+                        }
+                    }
+                }
+            })
+            return resp.status(200).json(user)
+        }
+
          if(skillsList){
              const allSkills = await prisma.skill.findMany()
-    
-             skillsList.map(async (skill: string) => {
-    
-                 const findSkill = allSkills.find((item) => item.text === skill)
-    
-                 if(findSkill){
-                     const userSkills = await prisma.usersSkills.create({
-                         data:{
-                             fk_id_skill: findSkill.id,
-                             fk_id_user: id,
-                         }
-                     })
-                     return
-                 }
-    
-                 const skillCreate = await prisma.skill.create({
-                     data:{
-                         text: skill
-                     }
-                 })
-    
-                 const userSkills = await prisma.usersSkills.create({
-                     data:{
-                         fk_id_skill: skillCreate.id,
-                         fk_id_user: id,
-                     }
-                 })
-                 return
+             const userSkills = await prisma.usersSkills.findMany({
+                where:{
+                    fk_id_user:id
+                },
+                include:{
+                    skill: true
+                }
              })
+
+
+             skillsList.map(async (skill: string) => {
+                const findSkill = allSkills.find((item) => item.text.toLocaleLowerCase() === skill.toLocaleLowerCase())
+                 
+                const userSkillsMap = userSkills?.map((item) => item.skill.text)
+
+                const findMissSkill = userSkillsMap?.filter((item) => {
+                    return !skillsList?.includes(item)
+                })
+
+                const teste = userSkills?.filter((item) => {
+                    return !skillsList?.includes(item.skill.text)
+                })
+          
+                  if(findSkill && findMissSkill.includes(findSkill.text)){
+                     try {
+                         const userSkills = await prisma.usersSkills.create({
+                             data:{
+                                 fk_id_skill: findSkill.id,
+                                 fk_id_user: id,
+                             }
+                         })
+                     } catch (error) {                        
+                     }
+                  }else if(findMissSkill.length > 0){
+                     try {
+                        teste.map(async (item : any) => {
+                             const deletedSkill = await prisma.usersSkills.delete({
+                                 where:{
+                                     fk_id_skill_fk_id_user: {
+                                         fk_id_skill: item.skill.id,
+                                         fk_id_user: id
+                                     }
+                                 }
+                             })               
+                         })
+                     } catch (error) {       
+                     }
+                  }else{
+                      const skillCreate = await prisma.skill.create({
+                          data:{
+                              text: skill
+                          }
+                      })
+                      const userSkills = await prisma.usersSkills.create({
+                          data:{
+                              fk_id_skill: skillCreate.id,
+                              fk_id_user: id,
+                          }
+                      })
+                  }
+            })
+            return resp.status(200).json({})
          }
-         console.log('porra')
-        return resp.status(200)
     }
 }

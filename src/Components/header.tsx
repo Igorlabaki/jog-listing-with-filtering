@@ -84,7 +84,7 @@ export function HeaderComponent() {
                   flex justify-center items-start flex-col relative
                   h-full w-[200px]
                   rounded-b-md rounded-tl-md
-                  text-sm font-semibold text-desaturatedDarkCyan
+                  text-sm  text-desaturatedDarkCyan
                   "
                 >
                   <p className=" py-2 px-3">Hello, {authUser.username}.</p>
@@ -141,7 +141,7 @@ export function HeaderComponent() {
         ) : (
           <div className="cursor-pointer">
             <p
-              className="text-white text-md font-semibold z-30"
+              className="text-white text-md font-light z-30"
               onClick={() => handleOpenAuthModal()}
             >
               Sing In
@@ -152,8 +152,8 @@ export function HeaderComponent() {
       {isAuthModalOpen && (
         <ModalAuthComponent onClose={() => handleCloseAuthModal()}>
           <div
-            className="bg-white  flex justify-start items-center flex-col relative h-auto
-           w-full py-10 rounded-lg overflow-hidden"
+            className="bg-white  flex justify-center items-center flex-col relative 
+           w-full h-full md:h-auto py-10 rounded-lg overflow-hidden"
           >
             <div className="absolute top-2 right-2 hover:bg-LightGrayishCyan rounded-full">
               <IoIosClose
@@ -162,9 +162,6 @@ export function HeaderComponent() {
                 onClick={() => handleCloseAuthModal()}
               />
             </div>
-            <p className="font-bold text-desaturatedDarkCyan text-4xl">
-              Sign in
-            </p>
             <FormComponent />
           </div>
         </ModalAuthComponent>

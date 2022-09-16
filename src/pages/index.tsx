@@ -25,7 +25,7 @@ const Home: NextPage = () => {
         <button
           onClick={() => setMode("jobs")}
           className={`${mode.includes("jobs") ? "shadow-lg" : "opacity-50 "}
-          min-w-[100px] bg-desaturatedDarkCyan py-1 w-[50%] px-2 text-white font-bold text-md rounded-md`}
+          min-w-[100px] bg-desaturatedDarkCyan py-1 w-[50%] px-2 text-white font-light text-md rounded-md`}
         >
           Jobs
         </button>
@@ -36,7 +36,7 @@ const Home: NextPage = () => {
           className={` ${
             mode.includes("developers") ? "shadow-lg" : "opacity-50"
           }
-          min-w-[100px] bg-desaturatedDarkCyan w-[50%] py-1 px-2 text-white font-bold text-md rounded-md
+          min-w-[100px] bg-desaturatedDarkCyan w-[50%] py-1 px-2 text-white font-light text-md rounded-md
           hover:opacity-80
           `}
         >

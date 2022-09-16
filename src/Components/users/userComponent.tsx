@@ -36,7 +36,7 @@ export function UserComponent({ user }: UserProps) {
           handleRedirectAuthFilter();
         }}
       >
-        <div className="h-12 w-12 cursor-pointer  md:h-16 md:w-16 mr-5 absolute bottom-[4.55rem] md:relative md:bottom-0">
+        <div className="h-16 w-16 cursor-pointer  md:h-16 md:w-16 mr-5 absolute bottom-[5.0rem] md:relative md:bottom-0">
           <img
             src={user?.avatar}
             alt="brand"
@@ -51,12 +51,12 @@ export function UserComponent({ user }: UserProps) {
         >
           <div className="flex justify-start items-center  space-x-4">
             <>
-              <p className="text cursor-pointer  font-bold text-[12px] md:text-[14px] text-desaturatedDarkCyan">
+              <p className="text cursor-pointer  font-semibold text-[16px] md:text-[20px] text-desaturatedDarkCyan">
                 {user?.name}
               </p>
             </>
           </div>
-          <p className="font-bold text-[15px] text-start cursor-pointer ">
+          <p className="font-bold text-[20px] text-start cursor-pointer ">
             {user?.levels[0]} {user?.areas[0]}
           </p>
           <div className="flex space-x-3 text-[12px] text-darkGrayishYan font-semibolds">

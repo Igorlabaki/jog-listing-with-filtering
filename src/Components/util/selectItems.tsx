@@ -21,9 +21,7 @@ export default function SelectItemsComponent({
         ${handleHidden ? "flex" : "hidden"}
     `}
     >
-      <p className="text-desaturatedDarkCyan  font-semibold text-sm">
-        {title}:
-      </p>
+      <p className="text-desaturatedDarkCyan   text-sm">{title}:</p>
       <div className="flex gap-4 text-sm text-veryDarkGraishCyan font-light">
         {listOptions.map((item) => {
           return (

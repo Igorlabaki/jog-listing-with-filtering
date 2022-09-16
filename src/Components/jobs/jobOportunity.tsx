@@ -56,7 +56,7 @@ export function JobOportunity({ job }: Props) {
     `}
     >
       <div className="flex relative" onClick={() => {}}>
-        <div className="h-12 w-12 cursor-pointer  md:h-16 md:w-16 mr-5 absolute bottom-[4.55rem] md:relative md:bottom-0">
+        <div className="h-16 w-16 cursor-pointer  md:h-16 md:w-16 mr-5 absolute bottom-[5.5rem] md:relative md:bottom-0">
           <Image
             src={job?.image}
             alt="brand"
@@ -70,10 +70,10 @@ export function JobOportunity({ job }: Props) {
         <div
           className={`space-y-1 pt-3 md:pt-0 flex flex-col justify-start items-start`}
         >
-          <div className="flex justify-start items-center  space-x-4">
+          <div className="flex justify-start items-center  space-x-4 mt-2">
             <>
               <p
-                className="text cursor-pointer  font-bold text-[12px] md:text-[14px] text-desaturatedDarkCyan"
+                className="text cursor-pointer  font text-[16px] md:text-[20px] text-desaturatedDarkCyan"
                 onClick={() => {
                   handleRedirectAuthFilter();
                 }}
@@ -87,14 +87,14 @@ export function JobOportunity({ job }: Props) {
             </>
           </div>
           <p
-            className="font-bold text-[15px] text-start cursor-pointer "
+            className="font-semibold text-[20px] text-start cursor-pointer "
             onClick={() => {
               handleRedirectAuthFilter();
             }}
           >
             {job?.job_title}
           </p>
-          <div className="flex space-x-3 text-[12px] text-darkGrayishYan font-semibold">
+          <div className="flex space-x-3 text-[13px] text-darkGrayishYan font-light">
             <p>{job?.create_at}</p>
             <p>{job?.period}</p>
             <p>{job?.region}</p>
@@ -102,7 +102,7 @@ export function JobOportunity({ job }: Props) {
         </div>
       </div>
       <hr className="h2 my-2" />
-      <div className="flex text-[12px] gap-x-2 text-desaturatedDarkCyan font-bold flex-wrap gap-y-2">
+      <div className="flex text-[14px] gap-x-2 text-desaturatedDarkCyan font- flex-wrap gap-y-2">
         <SkillsComponent skills={job.skills} />
       </div>
     </div>

@@ -134,7 +134,13 @@ export function FormComponent() {
       handleCookies(user.id);
       setAuthUser(() => user);
       handleCloseAuthModal();
-    } catch (error) {}
+    } catch (error) {
+      setError({
+        field: "Email already exists",
+        message: "This email already have an account.",
+      });
+      setTimeout(() => removeError("Email already exists"), 2000);
+    }
   }
 
   function handleSubmit() {
@@ -158,13 +164,31 @@ export function FormComponent() {
   }, [userType, areaType, levelType]);
 
   return (
-    <div className="relative">
+    <div className="relative flex flex-col justify-center items-start  w-[50%] md:w-[90%] mx-auto ">
+      {modeSignUp ? (
+        <div className="w-full ">
+          <p className="text-desaturatedDarkCyan text-4xl font-semibold text-center w-full">
+            Sign up
+          </p>
+        </div>
+      ) : (
+        <div className={`flex flex-col justify-center items-center`}>
+          <div className="h-48 w-48">
+            <img src="/images/logo/mobilbeGreenLogo.png" alt="" />
+          </div>
+          <p
+            className={`text-sm text-darkGrayishYan font-light w-[80%] mx-auto mt-2 `}
+          >
+            Welcome to the network that connects developers and employers
+          </p>
+        </div>
+      )}
       {errors.length > 0 && (
         <div
-          className={`
-            bg-red-200 flex w-auto justify-center items-start 
+          className={`e
+            bg-red-200 flex justify-center items-start 
             rounded-lg text-[12px] italic font-semibold text-red-600 my-4 py-1 px-3
-            animate-openMenu flex-col space-x-2
+            animate-openMenu flex-col space-x-2 w-full
             `}
         >
           <p>Please correct the error(s) below:</p>
@@ -174,7 +198,7 @@ export function FormComponent() {
         </div>
       )}
       <div
-        className={`flex flex-col space-y-3 h-auto ${
+        className={`flex flex-col space-y-3 h-auto w-full  ${
           errors.length > 0 ? "mt-3" : "mt-10"
         }`}
       >
@@ -182,10 +206,13 @@ export function FormComponent() {
           required
           type="email"
           name="email"
-          className={`
-            outline-none border-0 bg-LightGrayishCyan shadow-lg h-8 rounded-lg w-[350px] px-3 py-1
+          className={`${
+            errors.find((item) => item.field.toLocaleLowerCase() === "email") &&
+            "border-2 border-red-300"
+          }
+            outline-none border-0 bg-LightGrayishCyan shadow-lg h-8 rounded-lg w-full px-3 py-1
           `}
-          placeholder="Enter your email..."
+          placeholder="Enter your email"
           value={authLogin.email}
           onChange={(e) => handleChange(e)}
         />
@@ -193,10 +220,14 @@ export function FormComponent() {
           required
           type="text"
           name="username"
-          className={`${modeSignUp ? "flex" : "hidden"}
-            outline-none border-0 bg-LightGrayishCyan shadow-lg h-8 rounded-lg w-[350px] px-3 py-1
+          className={`${modeSignUp ? "flex" : "hidden"} ${
+            errors.find(
+              (item) => item.field.toLocaleLowerCase() === "username"
+            ) && "border-2 border-red-300"
+          }
+            outline-none border-0 bg-LightGrayishCyan shadow-lg h-8 rounded-lg w-full px-3 py-1 overflow-hidden
           `}
-          placeholder="Enter your username..."
+          placeholder="Enter your username"
           value={authLogin.username}
           onChange={(e) => handleChange(e)}
         />
@@ -204,8 +235,13 @@ export function FormComponent() {
           required
           type="password"
           name="password"
-          className="outline-none border-0 bg-LightGrayishCyan shadow-lg h-8 rounded-lg w-[350px] px-3 py-1"
-          placeholder="Enter your password..."
+          className={`${
+            errors.find(
+              (item) => item.field.toLocaleLowerCase() === "password"
+            ) && "border-2 border-red-300"
+          }
+          outline-none border-0 bg-LightGrayishCyan shadow-lg h-8 rounded-lg w-full px-3 py-1`}
+          placeholder="Enter your password"
           value={authLogin.password}
           onChange={(e) => handleChange(e)}
         />
@@ -233,7 +269,7 @@ export function FormComponent() {
       </div>
       <div className="mb-3">
         <div className="flex space-x-1 my-2">
-          <p className="text-[13px]  font-semibold text-veryDarkGraishCyan pl-1">
+          <p className="text-[13px]  font-[600] text-veryDarkGraishCyan pl-1">
             {modeSignIn
               ? "Are you new here?"
               : "Do you already have an account?"}
@@ -261,7 +297,7 @@ export function FormComponent() {
         className={`
           w-[100%] bg-desaturatedDarkCyan shadow-pattern cursor-pointer
           hover:shadow-none hover:brightness-110  text-white text-[1.1rem] 
-          font-semibold  flex justify-center items-center rounded-lg space-x-2 p-2`}
+            flex justify-center items-center rounded-lg space-x-2 p-2`}
         onClick={(e) => {
           e.preventDefault();
           handleSubmit();

@@ -38,6 +38,8 @@ export default function MyProfile() {
   const [skillsList, setSkillsList] = useState<string[]>([]);
 
   const [loadingData, setLoadingData] = useState<boolean>(false);
+  const [loadingSkillsListData, setLoadingSkillsListData] =
+    useState<boolean>(false);
 
   function handleOpenPhotoModal() {
     setIsChangePhotoModalOpen(true);
@@ -55,7 +57,7 @@ export default function MyProfile() {
     setAvatar(() => authUser?.avatar);
     setBio(() => authUser?.bio);
 
-    const list = authUser?.Skills.map((item: any) => {
+    const list = authUser?.Skills?.map((item: any) => {
       return item.skill.text;
     });
     setSkillsList(() => list);
@@ -63,11 +65,10 @@ export default function MyProfile() {
 
   const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
-  async function updateAuth() {
+  async function updateRegularInformations() {
     setLoadingData(true);
     const bodyReq = {
       id: authUser?.id,
-      avatar: avatar,
       bio: bio,
       level: levelType,
       area: areaType,
@@ -82,7 +83,36 @@ export default function MyProfile() {
       ...userUpdated,
     }));
     setEditMode(false);
-    setTimeout(() => setLoadingData(false), 2500);
+    setTimeout(() => setLoadingData(false), 2000);
+  }
+
+  async function updateAvatar() {
+    const bodyReq = {
+      id: authUser.id,
+      avatar: avatar,
+    };
+    const userUpdated = await axios
+      .put("/api/auth", bodyReq)
+      .then((resp) => resp.data);
+
+    setAuthUser((prev: User) => ({
+      ...userUpdated,
+    }));
+    setEditMode(false);
+  }
+
+  async function handleUpdateSkills(skilsListprops: any) {
+    setLoadingSkillsListData(true);
+    const bodyReq = {
+      id: authUser.id,
+      skillsList: skilsListprops,
+    };
+    const userUpdated = await axios
+      .put("/api/auth", bodyReq)
+      .then((resp) => resp.data);
+
+    setEditMode(false);
+    setTimeout(() => setLoadingSkillsListData(false), 2000);
   }
 
   return (
@@ -113,13 +143,16 @@ export default function MyProfile() {
                       cursor-pointer justify-center items-start animate-openMenu`}
                 onClick={() => handleOpenPhotoModal()}
               >
-                <p className="text-white font-semibold text-[9px] lg:text-[11px]">
+                <p className="text-white font-light text-[11px] lg:text-[11px]">
                   Update photo
                 </p>
               </div>
             </div>
           </div>
-          <div className="px-5 py-5 mt-10 flex flex-col justify-start items-start w-full ">
+          <div
+            className={`${editMode ? "mt-2" : "mt-10"}
+          px-5 py-5  flex flex-col justify-start items-start w-full `}
+          >
             {loadingData ? (
               <LoadingUserDataComponent />
             ) : (
@@ -129,9 +162,24 @@ export default function MyProfile() {
                     className="w-full relative flex flex-col gap-y-2"
                     onSubmit={(e) => {
                       e.preventDefault();
-                      updateAuth();
+                      updateRegularInformations();
                     }}
                   >
+                    <div className="w-full flex justify-end items-center">
+                      <div className="flex gap-2">
+                        <Button
+                          type="submit"
+                          title="Save"
+                          className="bg-desaturatedDarkCyan py-1 text-white font- text-[13px] rounded-md w-[60px] h-auto shadow-md hover:shadow:none hover:brightness-[.90]"
+                        />
+                        <Button
+                          type="button"
+                          title="Cancel"
+                          onClick={() => setEditMode(false)}
+                          className="bg-red-400 py-1 text-white font- text-[13px] rounded-md w-[60px] h-auto shadow-md hover:shadow:none hover:brightness-[.90]"
+                        />
+                      </div>
+                    </div>
                     <div className="flex justify-between items-center">
                       <SelectItemsComponent
                         title="Select your level"
@@ -146,19 +194,6 @@ export default function MyProfile() {
                         ]}
                         handleHidden={true}
                       />
-                      <div className="flex gap-2">
-                        <Button
-                          type="submit"
-                          title="Save"
-                          className="bg-desaturatedDarkCyan py-1 text-white font-semibold text-[13px] rounded-md w-[50px] h-auto shadow-md hover:shadow:none hover:brightness-125"
-                        />
-                        <Button
-                          type="button"
-                          title="Cancel"
-                          onClick={() => setEditMode(false)}
-                          className="bg-red-300 py-1 text-white font-semibold text-[13px] rounded-md w-[50px] h-auto shadow-md hover:shadow:none hover:brightness-125"
-                        />
-                      </div>
                     </div>
                     <SelectItemsComponent
                       title="Select your area"
@@ -170,7 +205,7 @@ export default function MyProfile() {
                     <input
                       placeholder="Type your username"
                       type="text"
-                      className="flx-1 bg-LightGrayishCyan outline-none rounded-md w-[100%] px-2 h-6 text-sm font-semibold text-desaturatedDarkCyan"
+                      className="flx-1 bg-LightGrayishCyan outline-none rounded-md w-[100%] px-2 h-6 text-sm font-light text-desaturatedDarkCyan"
                       value={username}
                       onChange={(e) => {
                         e.preventDefault();
@@ -180,7 +215,7 @@ export default function MyProfile() {
                     <input
                       placeholder="Type your email"
                       type="email"
-                      className="flx-1 bg-LightGrayishCyan outline-none rounded-md w-[100%] px-2 h-6 text-sm font-semibold text-desaturatedDarkCyan"
+                      className="flx-1 bg-LightGrayishCyan outline-none rounded-md w-[100%] px-2 h-6 text-sm font-light text-desaturatedDarkCyan"
                       value={email}
                       onChange={(e) => {
                         e.preventDefault();
@@ -188,7 +223,7 @@ export default function MyProfile() {
                       }}
                     />
                     <textarea
-                      className="bg-LightGrayishCyan resize-none w-full h-24 text-sm py-2 px-2 outline-none rounded-lg 
+                      className="bg-LightGrayishCyan resize-none w-full h-[200px] text-sm py-2 px-2 outline-none rounded-lg 
                       "
                       placeholder={authUser?.bio ? "" : "Write about you..."}
                       value={bio}
@@ -198,7 +233,7 @@ export default function MyProfile() {
                 ) : (
                   <>
                     <div className="flex justify-between items-center w-full text-desaturatedDarkCyan">
-                      <p className="font-semibold text-[16px] text-desaturatedDarkCyan">
+                      <p className="text-[20px] text-desaturatedDarkCyan">
                         {authUser?.area} {authUser?.level}
                       </p>
                       <FaUserEdit
@@ -209,15 +244,15 @@ export default function MyProfile() {
                     <p className="font-semibold text-2xl  text-veryDarkGraishCyan">
                       {authUser?.username}
                     </p>
-                    <div className="flex space-x-3 text-[12px] text-darkGrayishYan font-semibold">
+                    <div className="flex space-x-3 text-[13px] text-darkGrayishYan font-light">
                       <p>{authUser?.email}</p>
                     </div>
                     {authUser?.bio && (
                       <div className="mt-3 flex flex-col  justify-center items-start w-full">
-                        <p className="font-semibold text-[13px] text-desaturatedDarkCyan">
+                        <p className="text-[15px] text-desaturatedDarkCyan">
                           About me:
                         </p>
-                        <p className="text-veryDarkGraishCyan w-full text-justify tracking-[0.02] text-[14px] rounded-md flex justify-start text-md font-semibold px-5 py-1 spa">
+                        <p className="text-veryDarkGraishCyan w-full text-justify tracking-[0.02] text-[14px] rounded-md flex justify-start text-md font-light px-5 py-1 spa">
                           {authUser.bio}
                         </p>
                       </div>
@@ -235,7 +270,10 @@ export default function MyProfile() {
                   setSkillsList(() => [selectSkill]);
                 } else {
                   if (
-                    skillsList?.find((item: string) => item === selectSkill)
+                    skillsList?.find(
+                      (item: string) =>
+                        item?.toLowerCase() === selectSkill?.toLowerCase()
+                    )
                   ) {
                     return;
                   }
@@ -247,48 +285,89 @@ export default function MyProfile() {
                 setSelectSkill("");
               }}
             >
-              <p className="text-desaturatedDarkCyan  font-semibold text-sm">
-                Skills:
-              </p>
+              <p className="text-desaturatedDarkCyan  text-sm">Skills:</p>
               <input
                 type="text"
-                className="flx-1 bg-LightGrayishCyan outline-none rounded-md w-[100%] px-2 h-6 text-sm font-semibold text-desaturatedDarkCyan"
+                className="flx-1 bg-LightGrayishCyan outline-none rounded-md w-[100%] px-2 h-6 text-sm  text-desaturatedDarkCyan"
                 value={selectSkill}
                 onChange={(e) => {
                   e.preventDefault();
                   setSelectSkill(e.target.value);
                 }}
               />
+              <p
+                onClick={() => setSkillsList(() => [])}
+                className={`${editMode && "hidden"}
+                cursor-pointer font-semibold text-[14px] text-desaturatedDarkCyan hover:underline`}
+              >
+                Clear
+              </p>
             </form>
-            <div className="mt-3 flex justify-start items-center flex-wrap gap-x-[5px] gap-y-2">
-              {skillsList?.map((skill: string, i) => {
-                return (
+            <div
+              className={`
+            mt-3 flex justify-start items-center flex-wrap gap-x-[10px] gap-y-2`}
+            >
+              {loadingSkillsListData ? (
+                <div className="mt-3 flex justify-start items-center flex-wrap gap-x-[10px] gap-y-2">
                   <div
-                    key={i}
-                    className={`bg-LightGrayishCyan shadow-md text-sm min-w-[90px]  font-semibold h-6 overflow-hidden text-desaturatedDarkCyan flex justify-between rounded-sm`}
-                  >
-                    <p className="px-1 text-[13px] font-bold">{skill}</p>
-                    <div className="bg-desaturatedDarkCyan hover:bg-veryDarkGraishCyan w-[20px] cursor-pointer flex justify-center items-center">
-                      <RiCloseFill
-                        color="white"
-                        size={16}
-                        onClick={() => {
-                          setSkillsList(() =>
-                            skillsList.filter((item: any) => item != skill)
-                          );
-                        }}
-                      />
+                    className={`bg-gray-200 shadow-md text-sm min-w-[90px]  h-6 overflow-hidden
+                 rounded-sm animate-pulse`}
+                  />
+                  <div
+                    className={`bg-gray-200 shadow-md text-sm min-w-[90px]  h-6 overflow-hidden
+                 rounded-sm animate-pulse`}
+                  />
+                  <div
+                    className={`bg-gray-200 shadow-md text-sm min-w-[90px]  h-6 overflow-hidden
+                 rounded-sm animate-pulse`}
+                  />
+                  <div
+                    className={`bg-gray-200 shadow-md text-sm min-w-[90px]  h-6 overflow-hidden
+                 rounded-sm animate-pulse`}
+                  />
+                  <div
+                    className={`bg-gray-200 shadow-md text-sm min-w-[90px]  h-6 overflow-hidden
+                 rounded-sm animate-pulse`}
+                  />
+                </div>
+              ) : (
+                skillsList?.map((skill: string, i) => {
+                  return (
+                    <div
+                      key={i}
+                      className={`
+                      bg-LightGrayishCyan shadow-md text-sm min-w-[90px]  h-6 overflow-hidden text-desaturatedDarkCyan flex justify-between items-center rounded-sm`}
+                    >
+                      <p className="px-1 text-[13px] font">{skill}</p>
+                      <div className="bg-desaturatedDarkCyan hover:bg-veryDarkGraishCyan w-[20px] cursor-pointer flex justify-center items-center">
+                        <RiCloseFill
+                          color="white"
+                          size={24}
+                          onClick={() => {
+                            setSkillsList(() =>
+                              skillsList.filter((item: any) => item != skill)
+                            );
+                          }}
+                        />
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })
+              )}
             </div>
-            <Button
-              type="button"
-              title="Save"
-              className="bg-desaturatedDarkCyan text-white font-semibold text-[13px] rounded-md w-[50px] h-auto mt-2 py-1"
-              onClick={() => updateAuth()}
-            />
+            {skillsList?.length > 0 && !editMode && (
+              <div className="flex space-x-3 mt-5">
+                <Button
+                  type="button"
+                  title="Save"
+                  className="bg-desaturatedDarkCyan py-1 text-white font- text-[13px] rounded-md w-[60px] h-auto shadow-md hover:shadow:none hover:brightness-[.90]"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleUpdateSkills(skillsList);
+                  }}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -346,7 +425,7 @@ export default function MyProfile() {
                   title="Apply"
                   className="w-full rounded-md bg-desaturatedDarkCyan text-white font-semibold py-2"
                   onClick={() => {
-                    updateAuth();
+                    updateAvatar();
                     handleClosePhotoModal();
                   }}
                 />

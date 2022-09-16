@@ -47,13 +47,14 @@ export function SearchComponent() {
           return (
             <div
               key={i}
-              className={`bg-LightGrayishCyan shadow-md text-sm  font-semibold h-6 overflow-hidden text-desaturatedDarkCyan flex rounded-sm`}
+              className={`bg-LightGrayishCyan shadow-md text-sm   h-6 overflow-hidden text-desaturatedDarkCyan
+               flex justify-between items-center rounded-sm w-[100px]`}
             >
-              <p className="px-1 text-[13px] font-bold">{skill}</p>
+              <p className="px-1 text-[14px] ">{skill}</p>
               <div className="bg-desaturatedDarkCyan hover:bg-veryDarkGraishCyan w-[20px] cursor-pointer flex justify-center items-center">
                 <RiCloseFill
                   color="white"
-                  size={16}
+                  size={25}
                   onClick={() => {
                     setSearch(() =>
                       search.filter((item: any) => item != skill)

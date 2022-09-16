@@ -14,7 +14,7 @@ export default function SkillsComponent({ skills }: SkillsProps) {
         return (
           <div key={i}>
             <p
-              className={`min-w-[70px] min-h-[20px] p-1 shadow-md rounded-sm hover:bg-desaturatedDarkCyan  hover:text-white cursor-pointer
+              className={`min-w-[70px] min-h-[20px] p-1 shadow-md rounded-sm hover:bg-desaturatedDarkCyan  hover:text-white cursor-pointer text-md
               ${
                 search.find(
                   (item: string) =>

@@ -82,7 +82,6 @@ model Job {
 }
 
 model UsersSkills {
-  id          String   @id @default(uuid())
   skill       Skill    @relation(fields: [fk_id_skill], references: [id])
   fk_id_skill String
   user        User     @relation(fields: [fk_id_user], references: [id])
@@ -90,7 +89,8 @@ model UsersSkills {
   created_at  DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  @@map("userBooks")
+  @@id([fk_id_skill, fk_id_user])
+  @@map("usersSkills")
 }
 
 model Skill {

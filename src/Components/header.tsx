@@ -65,7 +65,7 @@ export function HeaderComponent() {
                 <img
                   src={authUser?.avatar}
                   className={`h-full w-full relative z-10 ${
-                    router.asPath.includes("myProfile") && "mt-[10px]"
+                    router.asPath.includes("myProfile") && "mt-[10px] md:mt-0"
                   }`}
                   alt="user avatar"
                 />

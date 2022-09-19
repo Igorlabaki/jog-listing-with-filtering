@@ -279,7 +279,7 @@ export default async function Auth(req:NextApiRequest,resp: NextApiResponse){
                       })
                   } catch (error) {       
                   }
-              }
+                }
 
 
                skillsList.map(async (skill: string) => {

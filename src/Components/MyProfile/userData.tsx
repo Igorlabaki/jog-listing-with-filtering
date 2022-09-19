@@ -23,8 +23,8 @@ export function UserDataComponet({ setEditMode }: Props) {
   }, []);
 
   return (
-    <div className="flex flex-col animate-openEditProfile">
-      <div className="flex justify-between items-center w-full text-desaturatedDarkCyan ">
+    <div className="flex flex-col animate-openEditProfile w-full">
+      <div className="flex justify-between items-center w-full  text-desaturatedDarkCyan ">
         <p className="text-[20px] text-desaturatedDarkCyan">
           {authUser?.area} {authUser?.level}
         </p>
@@ -42,7 +42,7 @@ export function UserDataComponet({ setEditMode }: Props) {
       {authUser?.bio && (
         <div className="mt-3 flex flex-col  justify-center items-start w-full">
           <p className="text-[15px] text-desaturatedDarkCyan">Abouts me:</p>
-          <p className="text-veryDarkGraishCyan w-full text-justify tracking-[0.02] text-[14px] rounded-md flex justify-start text-md font-light px-5 py-1 spa">
+          <p className="text-veryDarkGraishCyan bg-LightGrayishCyan w-full text-justify tracking-[0.02] text-[14px] rounded-md flex justify-start text-md font-light px-5 py-1 spa">
             {authUser.bio}
           </p>
         </div>
@@ -57,7 +57,7 @@ export function UserDataComponet({ setEditMode }: Props) {
           </div>
         </div>
       )}
-      {authUser?.Link && (
+      {authUser?.Link?.length > 0 && (
         <div className="flex items-start gap-x-2 mt-2">
           <p className="text-[15px] text-desaturatedDarkCyan">Links:</p>
           <div className="flex text-veryDarkGraishCyan text-[14px] justify-start items-center space-x-3 relative">
@@ -78,7 +78,7 @@ export function UserDataComponet({ setEditMode }: Props) {
                               className={"text-pink-700"}
                             />
                           ) : link.name.includes("facebook") ? (
-                            <AiFillFacebook size={20} />
+                            <AiFillFacebook size={24} />
                           ) : (
                             <BiWorld size={25} />
                           )}

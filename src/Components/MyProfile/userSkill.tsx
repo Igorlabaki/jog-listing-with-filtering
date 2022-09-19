@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { parseCookies } from "nookies";
+import React, { useState, useEffect } from "react";
 import { RiCloseFill } from "react-icons/ri";
 import useAuthContext from "../../hook/useAuthContext";
 
@@ -15,8 +16,18 @@ export function UserSkillComponent({
   editMode,
   loadingSkillsListData,
 }: Props) {
-  const { authUser } = useAuthContext();
+  const { authUser, recoverUserInformation } = useAuthContext();
   const [selectSkill, setSelectSkill] = useState<any>(authUser?.Skill);
+
+  useEffect(() => {
+    const { userToken } = parseCookies();
+    if (userToken) {
+      recoverUserInformation(userToken);
+    }
+  }, []);
+
+  console.log(authUser);
+
   return (
     <>
       <form
@@ -90,9 +101,9 @@ export function UserSkillComponent({
               <div
                 key={i}
                 className={`${
-                  !authUser.Skills.map((item: any) => item.skill.text).includes(
-                    skill
-                  )
+                  !authUser?.Skills?.map(
+                    (item: any) => item.skill.text
+                  ).includes(skill)
                     ? "bg-gray-200 text-gray-500"
                     : "bg-LightGrayishCyan text-desaturatedDarkCyan"
                 }

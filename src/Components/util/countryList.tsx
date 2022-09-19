@@ -37,7 +37,11 @@ export function CountryListComponent({
         className="w-[110px] outline-none text-desaturatedDarkCyan my-2 bg-LightGrayishCyan py-1 px-2 rounded-md shadow-md text-sm cursor-pointer"
         onChange={(e) => {
           e.preventDefault();
-          setCountry(() => JSON.parse(e.target.value));
+          setCountry(() => {
+            if ((country = !"Country")) {
+              JSON.parse(e.target.value);
+            }
+          });
         }}
       >
         <option className="py-2 px-2">
@@ -51,14 +55,16 @@ export function CountryListComponent({
           );
         })}
       </select>
-      {authUser?.Country?.name && (
+      {country && (
         <select
           id="city"
           name="city"
-          className="w-[110px] outline-none text-desaturatedDarkCyan my-2 bg-LightGrayishCyan shadow-md rounded-md  py-1 px-2  text-sm"
+          className="w-[110px] outline-none text-desaturatedDarkCyan my-2 bg-LightGrayishCyan shadow-md rounded-md  py-1 px-2  text-sm animate-openMenu"
           onChange={(e) => {
             e.preventDefault();
-            setCity(() => e.target.value);
+            if (city != "City") {
+              setCity(() => e.target.value);
+            }
           }}
         >
           <option className="py-2 px-2">

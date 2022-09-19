@@ -42,6 +42,7 @@ module.exports = {
         },
         },
         animation: {
+        'openEditProfile': 'openEffect 1s linear',
         'openMenu': 'openEffect .5s linear',
         'closeMenu': 'closeEffect .5s linear',
         'closeErroAuth': 'closeEffect 2s linear',

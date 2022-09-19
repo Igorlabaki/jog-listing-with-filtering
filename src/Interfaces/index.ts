@@ -37,3 +37,10 @@ export interface ErrorAuth {
     field: string
     message:string
 }
+
+export interface CountriesCityies{
+    iso2: string
+    iso3: string
+    cities: String[]
+    country: string
+}

@@ -10,6 +10,7 @@ datasource db {
   provider             = "mysql"
   url                  = env("DATABASE_URL")
   referentialIntegrity = "prisma"
+  shadowDatabaseUrl    = env("SHADOW_DATA_BASE_URL")
 }
 
 model Account {
@@ -52,20 +53,27 @@ model VerificationToken {
 }
 
 model User {
-  id            String        @id @default(cuid())
-  username      String?
-  email         String?       @unique
-  password      String?
-  avatar        String?
-  emailVerified DateTime?     @map("email_verified")
-  created_at    DateTime      @default(now())
-  accounts      Account[]
-  sessions      Session[]
-  area          String?
-  level         String?
-  userType      String?
-  bio           String?       @db.Text
-  Skills        UsersSkills[]
+  id                    String               @id @default(cuid())
+  username              String?
+  email                 String?              @unique
+  password              String?
+  avatar                String?
+  emailVerified         DateTime?            @map("email_verified")
+  created_at            DateTime             @default(now())
+  accounts              Account[]
+  sessions              Session[]
+  area                  String?
+  level                 String?
+  userType              String?
+  bio                   String?              @db.Text
+  Skills                UsersSkills[]
+  Country               Country?             @relation(fields: [countryId], references: [id])
+  countryId             String?
+  City                  City?                @relation(fields: [cityId], references: [id])
+  cityId                String?
+  LocationInteresting   LocationInteresting? @relation(fields: [locationInterestingId], references: [id])
+  locationInterestingId String?
+  Link                  Link[]
 
   @@map("users")
 }
@@ -97,4 +105,30 @@ model Skill {
   id          String        @id @default(cuid())
   text        String        @unique
   UsersSkills UsersSkills[]
+}
+
+model Country {
+  id   String @id @default(cuid())
+  name String @unique
+  user User[]
+}
+
+model City {
+  id   String @id @default(cuid())
+  name String @unique
+  user User[]
+}
+
+model LocationInteresting {
+  id   String @id @default(cuid())
+  name String @unique
+  user User[]
+}
+
+model Link {
+  id         String @id @default(cuid())
+  url        String @unique
+  name       String
+  user       User   @relation(fields: [fk_id_user], references: [id])
+  fk_id_user String
 }

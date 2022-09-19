@@ -22,6 +22,8 @@ interface AuthContextProps {
   isAuthModalOpen: boolean;
   alertAuth: boolean;
   session: Session | null;
+  inputUser: any;
+  setInputUser: any;
   setSession: Dispatch<SetStateAction<Session | null>>;
   handleOpenAuthModal: () => void;
   handleCloseAuthModal: () => void;
@@ -30,6 +32,8 @@ interface AuthContextProps {
   setAuthUser: any;
   authUser: any;
   signIn: (authLogin: AuthLogin) => Promise<void>;
+  avatar: any;
+  setAvatar: any;
 }
 
 export const AuthContext = createContext({} as AuthContextProps);
@@ -39,6 +43,9 @@ export function AuthContextProvider({ children }: AuthContextProvider) {
   const [session, setSession] = useState<Session | null>(null);
   const [alertAuth, setAlertAuth] = useState(Boolean);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
+  const [inputUser, setInputUser] = useState<User | null>();
+
+  const [avatar, setAvatar] = useState<string | undefined | null>();
 
   const isAuthenticated = !!authUser;
   const router = useRouter();
@@ -134,6 +141,8 @@ export function AuthContextProvider({ children }: AuthContextProvider) {
     <AuthContext.Provider
       value={{
         isAuthenticated,
+        inputUser,
+        setInputUser,
         authUser,
         signIn,
         alertAuth,
@@ -145,6 +154,8 @@ export function AuthContextProvider({ children }: AuthContextProvider) {
         setAuthUser,
         session,
         setSession,
+        avatar,
+        setAvatar,
       }}
     >
       {children}

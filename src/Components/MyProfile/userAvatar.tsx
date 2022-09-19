@@ -16,7 +16,6 @@ export function UserAvatarComponent({ handleOpenPhotoModal }: Props) {
   const [changePhotoHover, setchangePhotoHover] = useState(false);
   const [isChangePhotoModalOpen, setIsChangePhotoModalOpen] = useState(false);
 
-  console.log(isChangePhotoModalOpen);
   return (
     <div className={`absolute md:relative`}>
       <div

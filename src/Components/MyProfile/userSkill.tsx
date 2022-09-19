@@ -26,8 +26,6 @@ export function UserSkillComponent({
     }
   }, []);
 
-  console.log(authUser);
-
   return (
     <>
       <form

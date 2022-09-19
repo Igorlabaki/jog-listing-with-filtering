@@ -33,6 +33,8 @@ export function CountryListComponent({
     console.log(city);
   }, [city]);
 
+  console.log(authUser);
+
   return (
     <div className="flex space-x-7">
       <select
@@ -55,7 +57,7 @@ export function CountryListComponent({
           );
         })}
       </select>
-      {country && (
+      {country || authUser?.City ? (
         <select
           id="city"
           name="city"
@@ -76,7 +78,7 @@ export function CountryListComponent({
             );
           })}
         </select>
-      )}
+      ) : null}
     </div>
   );
 }

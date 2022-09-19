@@ -39,22 +39,22 @@ export function UserDataComponet({ setEditMode }: Props) {
       <div className="flex space-x-3 text-[13px] text-darkGrayishYan font-light">
         <p>{authUser?.email}</p>
       </div>
-      {authUser?.bio && (
-        <div className="mt-3 flex flex-col  justify-center items-start w-full">
-          <p className="text-[15px] text-desaturatedDarkCyan">Abouts me:</p>
-          <p className="text-veryDarkGraishCyan bg-LightGrayishCyan w-full text-justify tracking-[0.02] text-[14px] rounded-md flex justify-start text-md font-light px-5 py-1 spa">
-            {authUser.bio}
-          </p>
-        </div>
-      )}
       {authUser?.Country && (
-        <div className="flex gap-x-2 mt-2">
+        <div className="flex gap-x-2 mt-1">
           <p className="text-[15px] text-desaturatedDarkCyan">
             Currently Location:
           </p>
           <div className="flex text-veryDarkGraishCyan text-[14px] justify-start items-center space-x-1">
             <p>{authUser?.Country.name}</p>, <p>{authUser?.City.name}</p>
           </div>
+        </div>
+      )}
+      {authUser?.bio && (
+        <div className="mt-3 flex flex-col  justify-center items-start w-full">
+          <p className="text-[15px] text-desaturatedDarkCyan">Abouts me:</p>
+          <p className="text-veryDarkGraishCyan bg-LightGrayishCyan w-full text-justify tracking-[0.02] text-[14px] rounded-md flex justify-start text-md font-light px-5 py-1 spa">
+            {authUser.bio}
+          </p>
         </div>
       )}
       {authUser?.Link?.length > 0 && (

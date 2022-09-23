@@ -31,8 +31,16 @@ export function JobsComponent() {
   return (
     <div
       className={`flex flex-col flex-1 min-h-screen space-y-10 md:space-y-2 
-    py-5 md:py-0 mt-10  md:my-0${search.length > 0 ? "my-[6.5rem]" : null} `}
+    py-5 md:py-0   md:my-0${search.length > 0 ? "my-[6.5rem]" : null} `}
     >
+      <SelectItemsComponent
+        listOptions={["Skills match"]}
+        title={"Order By"}
+        setType={setOrderBy}
+        type={orderBy}
+        handleHidden={true}
+        flexRow={true}
+      />
       {orderBy.includes("Skills match")
         ? jobMatchList
             .sort((a: any, b: any) => a.percentageMatch - b.percentageMatch)

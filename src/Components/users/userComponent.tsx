@@ -33,7 +33,10 @@ export function UserComponent({ user }: UserProps) {
           handleRedirectAuthFilter();
         }}
       >
-        <div className="h-16 w-16 cursor-pointer bg-gray-300 rounded-full felx justify-center items-center overflow-hidden  md:h-16 md:w-16 mr-5 absolute bottom-[5.0rem] md:relative md:bottom-0">
+        <div
+          className="h-16 w-16 cursor-pointer bg-gray-300 rounded-full flex justify-center items-center overflow-hidden 
+         md:h-16 md:w-16 mr-5 absolute bottom-[5.0rem] md:relative md:bottom-0"
+        >
           {user.avatar ? (
             <img
               src={user?.avatar}

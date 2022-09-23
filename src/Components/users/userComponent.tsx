@@ -47,7 +47,7 @@ export function UserComponent({ user }: UserProps) {
               }}
             />
           ) : (
-            <FiUser className="text-veryDarkGraishCyan text-[30px] md:text-[60px]" />
+            <FiUser className="text-veryDarkGraishCyan text-[30px] md:text-[35px]" />
           )}
         </div>
         <div

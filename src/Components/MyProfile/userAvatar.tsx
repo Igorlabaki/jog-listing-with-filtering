@@ -25,7 +25,7 @@ export function UserAvatarComponent({ handleOpenPhotoModal }: Props) {
         onMouseOut={() => setchangePhotoHover(false)}
       >
         {authUser?.avatar ? (
-          <div className="h-[70px] w-[70px] md:h-16 md:w-16 cursor-pointer mt-[-26px]">
+          <div className="h-[40px] w-[40px] md:h-16 md:w-16 cursor-pointer mt-[-26px]">
             <img
               src={authUser.avatar}
               className="h-full w-full"

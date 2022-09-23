@@ -1,5 +1,6 @@
 import { Skill, User, UsersSkills } from "@prisma/client";
 import { useRouter } from "next/router";
+import { FiUser } from "react-icons/fi";
 import useAuthContext from "../../hook/useAuthContext";
 import SkillsComponent from "../util/skills";
 
@@ -33,7 +34,7 @@ export function UserComponent({ user }: UserProps) {
         }}
       >
         <div className="h-16 w-16 cursor-pointer bg-gray-300 rounded-full felx justify-center items-center overflow-hidden  md:h-16 md:w-16 mr-5 absolute bottom-[5.0rem] md:relative md:bottom-0">
-          {user.avatar && (
+          {user.avatar ? (
             <img
               src={user?.avatar}
               alt="brand"
@@ -43,6 +44,8 @@ export function UserComponent({ user }: UserProps) {
                 handleRedirectAuthFilter();
               }}
             />
+          ) : (
+            <FiUser className="text-veryDarkGraishCyan text-[30px] md:text-[60px]" />
           )}
         </div>
         <div

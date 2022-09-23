@@ -2,7 +2,7 @@ import { createAvatar } from '@dicebear/avatars';
 import * as style from '@dicebear/avatars-bottts-sprites';
 import { faker } from '@faker-js/faker';
 import { v4 as uuidv4 } from 'uuid';
-import { AuthLogin, User } from '../Interfaces';
+import { AuthLogin } from '../Interfaces';
 
 export const skills = [
     'HTML',

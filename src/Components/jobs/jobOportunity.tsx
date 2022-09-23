@@ -1,21 +1,20 @@
-import { Console } from "console";
-import { GetServerSideProps } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { parseCookies } from "nookies";
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { useEffect, useState } from "react";
 import useAuthContext from "../../hook/useAuthContext";
-import useJobContext from "../../hook/useJobContext";
 import useSearchContext from "../../hook/useSearchSContext";
 import { Job } from "../../Interfaces";
 import SkillsComponent from "../util/skills";
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 interface Props {
   job: Job;
   token?: any;
+  percentageMatch: any;
 }
 
-export function JobOportunity({ job }: Props) {
+export function JobOportunity({ job, percentageMatch }: Props) {
   const router = useRouter();
   const { setSearch } = useSearchContext();
   const { handleOpenAuthModal, session } = useAuthContext();
@@ -67,6 +66,7 @@ export function JobOportunity({ job }: Props) {
             }}
           />
         </div>
+
         <div
           className={`space-y-1 pt-3 md:pt-0 flex flex-col justify-start items-start`}
         >
@@ -94,16 +94,52 @@ export function JobOportunity({ job }: Props) {
           >
             {job?.job_title}
           </p>
-          <div className="flex space-x-3 text-[13px] text-darkGrayishYan font-light">
-            <p>{job?.create_at}</p>
-            <p>{job?.period}</p>
-            <p>{job?.region}</p>
+          <div className="flex justify-between items-center w-ful">
+            <div className="flex space-x-3 text-[13px] text-darkGrayishYan font-light">
+              <p>{job?.create_at}</p>
+              <p>{job?.period}</p>
+              <p>{job?.region}</p>
+            </div>
           </div>
         </div>
       </div>
       <hr className="h2 my-2" />
-      <div className="flex text-[14px] gap-x-2 text-desaturatedDarkCyan font- flex-wrap gap-y-2">
-        <SkillsComponent skills={job.skills} />
+      <div
+        className="flex items-end text-[14px]  space-x-1
+       text-desaturatedDarkCyan relative  flex-wrap gap-y-2"
+      >
+        <div
+          className={`
+         absolute top-[-100px] right-0 lg:right-5 lg:top-0 h-10 w-10 rounded-full text-sm flex justify-center items-center text-desaturatedDarkCyan `}
+        >
+          {percentageMatch ? (
+            <CircularProgressbar
+              value={percentageMatch}
+              text={`${percentageMatch}%`}
+              background={true}
+              styles={{
+                path: {
+                  stroke: "hsl(180, 29%, 50%)",
+                },
+                trail: {
+                  // Trail color
+                  stroke: "hsl(180, 52%, 96%)",
+                },
+                text: {
+                  // Text color
+                  fill: "hsl(180, 29%, 50%)",
+                  // Text size
+                  fontSize: "25px",
+                },
+                background: {
+                  fill: "hsl(180, 52%, 96%)",
+                },
+              }}
+              className="bg-LightGrayishCyan rounded-full text-de"
+            />
+          ) : null}
+        </div>
+        <SkillsComponent skills={job?.skills} />
       </div>
     </div>
   );

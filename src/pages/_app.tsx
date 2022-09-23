@@ -4,6 +4,7 @@ import { JobContextProvider } from "../Context/jobContext";
 import { SearchContextProvider } from "../Context/SearchContext";
 import { AuthContextProvider } from "../Context/AuthContext";
 import { UserContextProvider } from "../Context/UserContext";
+import { MatchContextProvider } from "../Context/MatchContext";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -11,7 +12,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <AuthContextProvider>
         <UserContextProvider>
           <JobContextProvider>
-            <Component {...pageProps} />
+            <MatchContextProvider>
+              <Component {...pageProps} />
+            </MatchContextProvider>
           </JobContextProvider>
         </UserContextProvider>
       </AuthContextProvider>

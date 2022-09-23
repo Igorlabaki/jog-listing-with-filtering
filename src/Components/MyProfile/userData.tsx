@@ -7,6 +7,7 @@ import { BsInstagram, BsLinkedin } from "react-icons/bs";
 import { FaUserEdit } from "react-icons/fa";
 import { GoMarkGithub } from "react-icons/go";
 import useAuthContext from "../../hook/useAuthContext";
+import useMatchContext from "../../hook/useMatchContext";
 
 interface Props {
   setEditMode: any;
@@ -14,7 +15,7 @@ interface Props {
 
 export function UserDataComponet({ setEditMode }: Props) {
   const { authUser, recoverUserInformation } = useAuthContext();
-
+  const { matchUserJob, percentageMatch } = useMatchContext();
   useEffect(() => {
     const { userToken } = parseCookies();
     if (userToken) {

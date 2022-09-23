@@ -47,37 +47,12 @@ export function JobContextProvider({ children }: JobContextProvider) {
     setJob(job);
   }
 
-  function handleNew() {
-    if (job?.new) {
-      return (
-        <div
-          className="bg-desaturatedDarkCyan flex justify-center
-         items-center px-2 text-white text-[10px] md:text-[13px] font-bold rounded-full"
-        >
-          <p>NEW!</p>
-        </div>
-      );
-    }
-  }
-
-  function handleFeatured() {
-    if (job?.featured) {
-      return (
-        <div className="bg-veryDarkGraishCyan flex  md:text-[13px] justify-center items-center px-2 text-white text-[10px] font-bold rounded-full">
-          <p>FEATURED</p>
-        </div>
-      );
-    }
-  }
-
   return (
     <JobContext.Provider
       value={{
         filterNoResults,
         selectJobId,
         job,
-        handleFeatured,
-        handleNew,
       }}
     >
       {children}

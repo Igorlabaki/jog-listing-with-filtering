@@ -30,7 +30,7 @@ export default function SkillsComponent({ skills }: SkillsProps) {
 
   return (
     <>
-      {skills.map((skill: string, i: number) => {
+      {skills?.map((skill: string, i: number) => {
         const match = skillUser?.find(
           (item: any) =>
             item?.toLocaleLowerCase() === skill?.toLocaleLowerCase()

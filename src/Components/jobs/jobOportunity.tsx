@@ -112,6 +112,7 @@ export function JobOportunity({ job, percentageMatch }: Props) {
           className={`
          absolute top-[-100px] right-0 lg:right-5 lg:top-0 h-10 w-10 rounded-full text-sm flex justify-center items-center text-desaturatedDarkCyan `}
         >
+          eauheaiue
           {percentageMatch ? (
             <CircularProgressbar
               value={percentageMatch}

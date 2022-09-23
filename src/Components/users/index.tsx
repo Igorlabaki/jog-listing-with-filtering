@@ -21,7 +21,7 @@ export default function UsersComponent() {
       {userList?.map((user: User) => {
         return (
           <div key={user.id}>
-            <UserComponent user={user} key={user.id} />;
+            <UserComponent user={user} key={user.id} />
           </div>
         );
       })}

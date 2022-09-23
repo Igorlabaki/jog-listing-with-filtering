@@ -1,19 +1,29 @@
-import React from "react";
+import { User } from "@prisma/client";
+import React, { useEffect } from "react";
 import useUserContext from "../../hook/useUserContext";
 
-import { User } from "../../Interfaces";
 import { UserComponent } from "./userComponent";
 
 export default function UsersComponent() {
-  const { filterUserResults } = useUserContext();
+  const { userList, getAllUsers } = useUserContext();
+
+  useEffect(() => {
+    if (getAllUsers) {
+      getAllUsers();
+    }
+  }, []);
 
   return (
     <div
       className={`flex flex-col flex-1 min-h-screen space-y-10 md:space-y-2 
   py-5 md:py-0 my-7  md:my-0$`}
     >
-      {filterUserResults?.map((user: User) => {
-        return <UserComponent user={user} key={user.id} />;
+      {userList?.map((user: User) => {
+        return (
+          <div key={user.id}>
+            <UserComponent user={user} key={user.id} />;
+          </div>
+        );
       })}
     </div>
   );

@@ -30,7 +30,7 @@ export default function SkillsComponent({ skills }: SkillsProps) {
 
   return (
     <>
-      {skills?.map((skill, i) => {
+      {skills.map((skill: string, i: number) => {
         const match = skillUser?.find(
           (item: any) =>
             item?.toLocaleLowerCase() === skill?.toLocaleLowerCase()
@@ -51,7 +51,6 @@ export default function SkillsComponent({ skills }: SkillsProps) {
               }`}
               onMouseOver={() => {
                 setUserJobMatchSkill(true);
-                console.log("i");
               }}
               onMouseOut={() => setUserJobMatchSkill(false)}
               onClick={() => {

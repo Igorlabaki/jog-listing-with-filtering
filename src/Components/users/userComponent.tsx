@@ -1,14 +1,10 @@
-import { GetServerSideProps } from "next";
-import Image from "next/image";
+import { Skill, User, UsersSkills } from "@prisma/client";
 import { useRouter } from "next/router";
-import { parseCookies } from "nookies";
 import useAuthContext from "../../hook/useAuthContext";
-import { AiFillHome } from "react-icons/ai";
-import { User } from "../../Interfaces";
 import SkillsComponent from "../util/skills";
 
 interface UserProps {
-  user: User;
+  user: any;
   token?: any;
 }
 
@@ -31,42 +27,49 @@ export function UserComponent({ user }: UserProps) {
   `}
     >
       <div
-        className="flex relative"
+        className="flex relative "
         onClick={() => {
           handleRedirectAuthFilter();
         }}
       >
-        <div className="h-16 w-16 cursor-pointer  md:h-16 md:w-16 mr-5 absolute bottom-[5.0rem] md:relative md:bottom-0">
-          <img
-            src={user?.avatar}
-            alt="brand"
-            className="h-full w-full"
-            onClick={() => {
-              handleRedirectAuthFilter();
-            }}
-          />
+        <div className="h-16 w-16 cursor-pointer bg-gray-300 rounded-full felx justify-center items-center overflow-hidden  md:h-16 md:w-16 mr-5 absolute bottom-[5.0rem] md:relative md:bottom-0">
+          {user.avatar && (
+            <img
+              src={user?.avatar}
+              alt="brand"
+              className="h-full w-full"
+              color={"#000"}
+              onClick={() => {
+                handleRedirectAuthFilter();
+              }}
+            />
+          )}
         </div>
         <div
           className={`space-y-1 pt-3 md:pt-0 flex flex-col justify-start items-start`}
         >
-          <div className="flex justify-start items-center  space-x-4">
+          <div className="flex justify-start items-center  space-x-4 ">
             <>
               <p className="text cursor-pointer  font-semibold text-[16px] md:text-[20px] text-desaturatedDarkCyan">
-                {user?.name}
+                {user?.username}
               </p>
             </>
           </div>
           <p className="font-bold text-[20px] text-start cursor-pointer ">
-            {user?.levels[0]} {user?.areas[0]}
+            {user?.level} {user?.area}
           </p>
           <div className="flex space-x-3 text-[12px] text-darkGrayishYan font-semibolds">
-            {user?.email} - {user?.periods[0]} -
+            {user?.email} -
           </div>
         </div>
       </div>
       <hr className="h2 my-2" />
       <div className="flex text-[12px] gap-x-2 text-desaturatedDarkCyan font-bold flex-wrap gap-y-2">
-        <SkillsComponent skills={user.skills} />
+        <SkillsComponent
+          skills={user?.Skills?.map((item: any) => {
+            return item.skill.text;
+          })}
+        />
       </div>
     </div>
   );

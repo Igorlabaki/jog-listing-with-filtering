@@ -68,7 +68,7 @@ export function JobOportunity({ job, percentageMatch }: Props) {
         </div>
 
         <div
-          className={`space-y-1 pt-3 md:pt-0 flex flex-col justify-start items-start`}
+          className={`space-y-1 pt-4 md:pt-0 flex flex-col justify-start items-start`}
         >
           <div className="flex justify-start items-center  space-x-4 mt-2">
             <>

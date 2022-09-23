@@ -22,7 +22,7 @@ export function JobsComponent() {
     if (matchSkills && job?.skills) {
       const x = job.skills.length - matchSkills?.length;
       const skilssMatch = (x * 100) / job?.skills?.length;
-      percentageMatch = parseInt(skilssMatch).toFixed() | 0;
+      percentageMatch = skilssMatch | 0;
     }
 
     return { job: job, percentageMatch: percentageMatch };

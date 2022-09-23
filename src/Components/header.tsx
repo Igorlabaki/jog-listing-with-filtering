@@ -46,7 +46,10 @@ export function HeaderComponent() {
       } bg-desaturatedDarkCyan w-full static  flex flex-col justify-end  items-between`}
     >
       <div className="flex w-[90%] lg:w-[80%] m-auto justify-between items-end">
-        <div className="w-[250px] h-[60px] relative ml-[-1rem]">
+        <div
+          className="w-[250px] h-[60px] relative ml-[-1rem] cursor-pointer"
+          onClick={() => router.push("/")}
+        >
           <Image
             src={"/images/logo/webLogo.png"}
             alt="logo brand"

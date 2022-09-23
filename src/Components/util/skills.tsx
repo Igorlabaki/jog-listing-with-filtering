@@ -8,9 +8,10 @@ import useSearchContext from "../../hook/useSearchSContext";
 
 interface SkillsProps {
   skills: string[];
+  borderSkills?: boolean;
 }
 
-export default function SkillsComponent({ skills }: SkillsProps) {
+export default function SkillsComponent({ skills, borderSkills }: SkillsProps) {
   const router = useRouter();
 
   const { search, setSearch } = useSearchContext();
@@ -38,7 +39,11 @@ export default function SkillsComponent({ skills }: SkillsProps) {
         return (
           <div key={i}>
             <div
-              className={`${match && "border-[1px] border-desaturatedDarkCyan"}
+              className={`${
+                match &&
+                !borderSkills &&
+                "border-[1px] border-desaturatedDarkCyan"
+              }
               relative min-w-[70px] font-light min-h-[20px] py-1 px-3 shadow-md rounded-md hover:bg-desaturatedDarkCyan 
               hover:text-white cursor-pointer text-md flex justify-center items-center gap-2
               ${

@@ -10,7 +10,7 @@ import useAuthContext from "../../hook/useAuthContext";
 import useMatchContext from "../../hook/useMatchContext";
 
 interface Props {
-  setEditMode: any;
+  setEditMode?: any;
 }
 
 export function UserDataComponet({ setEditMode }: Props) {

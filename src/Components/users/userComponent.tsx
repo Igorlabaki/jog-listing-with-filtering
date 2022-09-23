@@ -1,4 +1,3 @@
-import { Skill, User, UsersSkills } from "@prisma/client";
 import { useRouter } from "next/router";
 import { FiUser } from "react-icons/fi";
 import useAuthContext from "../../hook/useAuthContext";
@@ -75,6 +74,7 @@ export function UserComponent({ user }: UserProps) {
           skills={user?.Skills?.map((item: any) => {
             return item.skill.text;
           })}
+          borderSkills={true}
         />
       </div>
     </div>

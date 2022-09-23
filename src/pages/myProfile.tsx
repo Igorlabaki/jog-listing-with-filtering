@@ -13,7 +13,7 @@ import { ChangePhotoModal } from "../Components/modals/changePhotoModal";
 import { Button } from "../Components/util/Button";
 import { LayoutComponent } from "../Components/util/layout";
 import SelectItemsComponent from "../Components/util/selectItems";
-import { recoverUserInformation } from "../database/users";
+
 import useAuthContext from "../hook/useAuthContext";
 import { FaUserEdit } from "react-icons/fa";
 import { LoadingUserDataComponent } from "../Components/users/loadingUserData";
@@ -27,7 +27,8 @@ import { UserAvatarComponent } from "../Components/MyProfile/userAvatar";
 import { UserSkillComponent } from "../Components/MyProfile/userSkill";
 
 export default function MyProfile() {
-  const { authUser, setAuthUser, setAvatar, avatar } = useAuthContext();
+  const { authUser, setAuthUser, setAvatar, avatar, recoverUserInformation } =
+    useAuthContext();
 
   const [isChangePhotoModalOpen, setIsChangePhotoModalOpen] = useState(false);
 

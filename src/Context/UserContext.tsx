@@ -1,7 +1,6 @@
 import { User } from "@prisma/client";
 import axios from "axios";
 import { createContext, Dispatch, ReactNode, useEffect, useState } from "react";
-import { users } from "../database/users";
 import useSearchContext from "../hook/useSearchSContext";
 
 interface UserContextProvider {
@@ -58,10 +57,15 @@ export function UserContextProvider({ children }: UserContextProvider) {
     setUsersList(() => users);
   }
 
-  function selectUserById(id: string) {}
+  async function selectUserById(id: string) {
+    const user: User = await axios
+      .get(`/api/user/${id}`)
+      .then((resp) => resp.data);
+    setUser(() => user);
+  }
 
   useEffect(() => {
-    setUsersList(() => users);
+    getAllUsers();
   }, []);
 
   return (

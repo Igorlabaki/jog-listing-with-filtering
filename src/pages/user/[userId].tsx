@@ -22,7 +22,7 @@ export default function UserIdPage() {
 
   return (
     <LayoutComponent>
-      <div className="mt-16 bg-white rounded-lg shadow-isadora relative w-full mb-10 flex space-x-3 space-y-10 py-5 px-5 ">
+      <div className="mt-16 bg-white rounded-lg shadow-isadora relative w-full mb-10 flex space-x-3 space-y-10 py-5 px-5 w-full ">
         <div className={`absolute md:relative`}>
           <div
             className="w-[90px] h-[90px] md:w-[100px] md:h-[100px]  bg-gray-200 rounded-full flex flex-col 

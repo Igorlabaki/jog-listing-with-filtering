@@ -25,6 +25,7 @@ import EditModeComponent from "../Components/MyProfile/editMode";
 import { UserDataComponet } from "../Components/MyProfile/userData";
 import { UserAvatarComponent } from "../Components/MyProfile/userAvatar";
 import { UserSkillComponent } from "../Components/MyProfile/userSkill";
+import { JobsComponent } from "../Components/jobs";
 
 export default function MyProfile() {
   const { authUser, setAuthUser, setAvatar, avatar, recoverUserInformation } =
@@ -124,7 +125,11 @@ export default function MyProfile() {
                     setLoadingData={setloadingData}
                   />
                 ) : (
-                  <UserDataComponet setEditMode={setEditMode} />
+                  <UserDataComponet
+                    setEditMode={setEditMode}
+                    user={authUser}
+                    editModeShow={true}
+                  />
                 )}
               </div>
             )}
@@ -150,6 +155,12 @@ export default function MyProfile() {
             )}
           </div>
         </div>
+      </div>
+      <div className="">
+        <h1 className="w-full flex justify-start items-center text-desaturatedDarkCyan text-2xl">
+          Job suggestions
+        </h1>
+        <JobsComponent profileJobs={true} />
       </div>
       {isChangePhotoModalOpen && (
         <ChangePhotoModal onClose={() => handleClosePhotoModal()}>

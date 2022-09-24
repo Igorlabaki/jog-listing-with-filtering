@@ -9,9 +9,14 @@ import useSearchContext from "../../hook/useSearchSContext";
 interface SkillsProps {
   skills: string[];
   borderSkills?: boolean;
+  noCheck?: boolean;
 }
 
-export default function SkillsComponent({ skills, borderSkills }: SkillsProps) {
+export default function SkillsComponent({
+  skills,
+  borderSkills,
+  noCheck,
+}: SkillsProps) {
   const router = useRouter();
 
   const { search, setSearch } = useSearchContext();
@@ -80,7 +85,7 @@ export default function SkillsComponent({ skills, borderSkills }: SkillsProps) {
             >
               {skill}
               <div
-                className={`${match ? "flex" : "hidden"}
+                className={`${match && !noCheck ? "flex" : "hidden"}
                  mb-1
                  `}
               >

@@ -20,12 +20,12 @@ export function UserAvatarComponent({ handleOpenPhotoModal }: Props) {
     <div className={`absolute md:relative`}>
       <div
         className="w-[90px] h-[90px] md:w-[100px] md:h-[100px]  bg-gray-200 rounded-full flex flex-col 
-      justify-center py-3 items-center relative overflow-hidden bottom-11 left-2 lg:bottom-0 lg:left-0 shadow-lg"
+      justify-center py-3 items-center relative overflow-hidden bottom-14 left-2 lg:bottom-0 lg:left-0 shadow-lg"
         onMouseOver={() => setchangePhotoHover(true)}
         onMouseOut={() => setchangePhotoHover(false)}
       >
         {authUser?.avatar ? (
-          <div className="h-[40px] w-[40px] md:h-16 md:w-16 cursor-pointer mt-[-26px]">
+          <div className="h-[80px] w-[80px] md:h-16 md:w-16 cursor-pointer mt-[-26px]">
             <img
               src={authUser.avatar}
               className="h-full w-full"

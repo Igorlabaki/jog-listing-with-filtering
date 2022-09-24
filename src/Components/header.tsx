@@ -64,7 +64,10 @@ export function HeaderComponent() {
             onClick={() => handleOpenMenuModal()}
           >
             {authUser?.avatar ? (
-              <div className="h-20 w-20 md:h-24 md:w-24 md:bottom-2 cursor-pointer relative ">
+              <div
+                className={`${router.asPath === "/" && " md:bottom-2 "}
+              h-20 w-20 md:h-24 md:w-24 cursor-pointer relative `}
+              >
                 <img
                   src={authUser?.avatar}
                   className={`h-full w-full relative z-10 ${

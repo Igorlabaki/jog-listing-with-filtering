@@ -71,6 +71,7 @@ export function UserComponent({ user }: UserProps) {
       <hr className="h2 my-2" />
       <div className="flex text-[12px] gap-x-2 text-desaturatedDarkCyan font-bold flex-wrap gap-y-2">
         <SkillsComponent
+          noCheck={true}
           skills={user?.Skills?.map((item: any) => {
             return item.skill.text;
           })}

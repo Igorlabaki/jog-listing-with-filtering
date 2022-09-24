@@ -45,7 +45,7 @@ export default function UserIdPage() {
           <UserDataComponet user={user} />
           <hr className="border-[1px] border-gray-300 w-full my-3" />
           <p className="text-desaturatedDarkCyan flex justify-start">Skills:</p>
-          <div className="flex  gap-x-2 gap-y-2 text-desaturatedDarkCyan mt-3 flex-wrap">
+          <div className="flex  gap-x-2 gap-y-2 text-desaturatedDarkCyan mt-3 flex-wrap text-sm">
             <SkillsComponent
               noCheck={true}
               borderSkills={true}

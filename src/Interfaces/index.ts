@@ -1,3 +1,5 @@
+import { User } from "@prisma/client"
+
 export interface Job{
     id:string,
     company: string,
@@ -14,9 +16,11 @@ export interface AuthLogin {
     email: string,
     username?: string,
     password: string,
-    typeAccount?: 'developer' | 'company'
+    userType?: 'developer' | 'company' | ''
     level?: string
     area?: string
+    country?: string,
+    city?: string
 }
 
 export interface ErrorAuth {
@@ -29,4 +33,20 @@ export interface CountriesCityies{
     iso3: string
     cities: String[]
     country: string
+}
+
+export interface bodyUpdateJob {
+    avatar: string,
+    user: User,
+    area: string,
+    level: string,
+    skillsList: string[],
+    period: string,
+    about: string,
+    country: {
+        country:string
+        iso2:string 
+        iso3:string
+    },
+    city: string
 }

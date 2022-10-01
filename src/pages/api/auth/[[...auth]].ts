@@ -144,8 +144,6 @@ export default async function Auth(req:NextApiRequest,resp: NextApiResponse){
                  }
               })
 
-              console.log(findCity,findCountry)
-
               if(findCity){        
                   const x = await prisma.city.update({
                       where:{

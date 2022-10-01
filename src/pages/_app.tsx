@@ -5,17 +5,20 @@ import { SearchContextProvider } from "../Context/SearchContext";
 import { AuthContextProvider } from "../Context/AuthContext";
 import { UserContextProvider } from "../Context/UserContext";
 import { MatchContextProvider } from "../Context/MatchContext";
+import { CompanyContextProvider } from "../Context/CompanyContext";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <SearchContextProvider>
       <AuthContextProvider>
         <UserContextProvider>
-          <JobContextProvider>
-            <MatchContextProvider>
-              <Component {...pageProps} />
-            </MatchContextProvider>
-          </JobContextProvider>
+          <CompanyContextProvider>
+            <JobContextProvider>
+              <MatchContextProvider>
+                <Component {...pageProps} />
+              </MatchContextProvider>
+            </JobContextProvider>
+          </CompanyContextProvider>
         </UserContextProvider>
       </AuthContextProvider>
     </SearchContextProvider>

@@ -12,7 +12,7 @@ import { parseCookies, setCookie, destroyCookie } from "nookies";
 import useErrors from "../hook/useErrors";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-import { Session, User } from "@prisma/client";
+import { Company, Session, User } from "@prisma/client";
 
 interface AuthContextProvider {
   children: ReactNode;
@@ -34,12 +34,13 @@ interface AuthContextProps {
   signIn: (authLogin: AuthLogin) => Promise<void>;
   avatar: any;
   setAvatar: any;
+  uploadPhoto: any;
 }
 
 export const AuthContext = createContext({} as AuthContextProps);
 
 export function AuthContextProvider({ children }: AuthContextProvider) {
-  const [authUser, setAuthUser] = useState<User | null>(null);
+  const [authUser, setAuthUser] = useState<User | Company | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [alertAuth, setAlertAuth] = useState(Boolean);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
@@ -106,10 +107,48 @@ export function AuthContextProvider({ children }: AuthContextProvider) {
     }
   }
 
-  async function recoverUserInformation(token: string) {
+  async function uploadPhoto(file: any) {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("api_key", "972746539144337");
+    formData.append("api_secret", "-odjGAqU-hd76JQeZUCHx5tbC8Y");
+    formData.append("upload_preset", "onbridge");
+
+    const photoUpload = await fetch(
+      "https:api.cloudinary.com/v1_1/dcjkvwbvh/image/upload",
+      {
+        method: "post",
+        body: formData,
+      }
+    )
+      .then((res) => res.json())
+      .then(async (data) => {
+        const bodyReq = {
+          avatar: data.url,
+          email: authUser?.email,
+        };
+
+        if (authUser?.userType?.includes("developer")) {
+          const userUpdate = await axios
+            .put("/api/user", bodyReq)
+            .then((resp) => resp.data);
+        } else {
+          const companyrUpdated = await axios
+            .put("/api/company", bodyReq)
+            .then((resp) => resp.data);
+        }
+
+        // await axios
+        //   .put("https://api.cloudinary.com/v1_1/dcjkvwbvh/image/upload", formData)
+        //   .then((resp) => console.log(resp.data));
+      });
+  }
+
+  async function recoverUserInformation(token: string, userType: string) {
     try {
       const sessionBody = {
         token: token,
+        userType: userType,
       };
       const sessionUpdate: Session = await axios
         .put(`/api/session`, sessionBody)
@@ -117,12 +156,21 @@ export function AuthContextProvider({ children }: AuthContextProvider) {
 
       setSession(() => sessionUpdate);
 
-      if (sessionUpdate.userId) {
-        const user: User = await axios
-          .get(`/api/auth/getAuthById/${sessionUpdate.userId}`)
-          .then((resp) => resp.data);
+      if (userType.includes("developer")) {
+        if (sessionUpdate.userId) {
+          const user: User = await axios
+            .get(`/api/auth/getAuthById/${sessionUpdate.userId}`)
+            .then((resp) => resp.data);
+          setAuthUser(() => user);
+        }
+      } else if (userType.includes("company")) {
+        if (sessionUpdate.companyId) {
+          const user: Company = await axios
+            .get(`/api/company/getCompanyById/${sessionUpdate.companyId}`)
+            .then((resp) => resp.data);
 
-        setAuthUser(() => user);
+          setAuthUser(() => user);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -130,10 +178,11 @@ export function AuthContextProvider({ children }: AuthContextProvider) {
   }
 
   useEffect(() => {
-    const { userToken: token } = parseCookies();
-
-    if (token) {
-      recoverUserInformation(token);
+    const { userToken: uToken, companyToken: cToken } = parseCookies();
+    if (uToken) {
+      recoverUserInformation(uToken, "developer");
+    } else if (cToken) {
+      recoverUserInformation(cToken, "company");
     }
   }, []);
 
@@ -156,6 +205,7 @@ export function AuthContextProvider({ children }: AuthContextProvider) {
         setSession,
         avatar,
         setAvatar,
+        uploadPhoto,
       }}
     >
       {children}

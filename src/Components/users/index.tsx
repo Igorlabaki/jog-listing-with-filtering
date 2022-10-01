@@ -15,8 +15,8 @@ export default function UsersComponent() {
 
   return (
     <div
-      className={`flex flex-col flex-1 min-h-screen space-y-10 md:space-y-2 
-  py-5 md:py-0 my-7  md:my-0$`}
+      className={`flex flex-col flex-1 min-h-screen space-y-16 md:space-y-2 
+  py-5 md:py-0 my-10  md:my-0$`}
     >
       {userList?.map((user: User) => {
         return (

@@ -27,7 +27,9 @@ model Account {
   id_token          String? @db.Text
   session_state     String?
 
-  user User @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+  Company   Company? @relation(fields: [companyId], references: [id])
+  companyId String?
 
   @@unique([provider, providerAccountId])
   @@map("accounts")
@@ -36,9 +38,11 @@ model Account {
 model Session {
   id           String   @id @default(cuid())
   sessionToken String   @unique @map("session_token")
-  userId       String   @map("user_id")
+  userId       String?  @map("user_id")
   expires      DateTime
-  user         User     @relation(fields: [userId], references: [id])
+  user         User?    @relation(fields: [userId], references: [id])
+  Company      Company? @relation(fields: [companyId], references: [id])
+  companyId    String?
 
   @@map("sessions")
 }
@@ -78,15 +82,43 @@ model User {
   @@map("users")
 }
 
+model Company {
+  id            String    @id @default(cuid())
+  name          String
+  Country       Country?  @relation(fields: [countryId], references: [id])
+  countryId     String?
+  City          City?     @relation(fields: [cityId], references: [id])
+  cityId        String?
+  Jobs          Job[]
+  about         String?   @db.Text
+  userType      String?
+  accounts      Account[]
+  sessions      Session[]
+  created_at    DateTime  @default(now())
+  email         String?   @unique
+  emailVerified DateTime? @map("email_verified")
+  avatar        String?
+  password      String?
+}
+
 model Job {
-  id         String   @id @default(cuid())
-  brand      String
-  company    String
-  job_title  String
-  new        Boolean
-  created_at DateTime @default(now())
-  skillId    String?
+  id         String       @id @default(cuid())
+  created_at DateTime     @default(now())
   areaId     String?
+  Company    Company?     @relation(fields: [companyId], references: [id])
+  companyId  String?
+  about      String?      @db.Text
+  Skills     JobsSkills[]
+  area       Area?        @relation(fields: [areaId], references: [id])
+  period     Period?      @relation(fields: [periodId], references: [id])
+  periodId   String?
+  level      level?       @relation(fields: [levelId], references: [id])
+  levelId    String?
+  Country    Country?     @relation(fields: [countryId], references: [id])
+  countryId  String?
+  City       City?        @relation(fields: [cityId], references: [id])
+  cityId     String?
+  avatar     String?
 }
 
 model UsersSkills {
@@ -101,22 +133,39 @@ model UsersSkills {
   @@map("usersSkills")
 }
 
+model JobsSkills {
+  skill       Skill    @relation(fields: [fk_id_skill], references: [id])
+  fk_id_skill String
+  job         Job      @relation(fields: [fk_id_job], references: [id])
+  fk_id_job   String
+  created_at  DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@id([fk_id_skill, fk_id_job])
+  @@map("jobSkills")
+}
+
 model Skill {
-  id          String        @id @default(cuid())
-  text        String        @unique
-  UsersSkills UsersSkills[]
+  id    String        @id @default(cuid())
+  text  String        @unique
+  Users UsersSkills[]
+  Jobs  JobsSkills[]
 }
 
 model Country {
-  id   String @id @default(cuid())
-  name String @unique
-  user User[]
+  id      String    @id @default(cuid())
+  name    String    @unique
+  user    User[]
+  Company Company[]
+  job     Job[]
 }
 
 model City {
-  id   String @id @default(cuid())
-  name String @unique
-  user User[]
+  id      String    @id @default(cuid())
+  name    String    @unique
+  user    User[]
+  Company Company[]
+  job     Job[]
 }
 
 model LocationInteresting {
@@ -130,4 +179,22 @@ model Link {
   name       String @unique
   user       User   @relation(fields: [fk_id_user], references: [id])
   fk_id_user String
+}
+
+model Area {
+  id   String @id @default(cuid())
+  name String @unique
+  jobs Job[]
+}
+
+model Period {
+  id   String @id @default(cuid())
+  name String @unique
+  jobs Job[]
+}
+
+model level {
+  id   String @id @default(cuid())
+  name String @unique
+  jobs Job[]
 }

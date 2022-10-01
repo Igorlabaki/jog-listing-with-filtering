@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { FiUser } from "react-icons/fi";
 import useAuthContext from "../../hook/useAuthContext";
+import { CardComponent } from "../util/card";
 import SkillsComponent from "../util/skills";
 
 interface UserProps {
@@ -21,11 +22,7 @@ export function UserComponent({ user }: UserProps) {
   }
 
   return (
-    <div
-      className={`bg-white w-full rounded-[3px] p-[17px] flex flex-col lg:flex-row justify-between 
-    hover:scale-[1.01] hover:shadow-md
-  `}
-    >
+    <CardComponent>
       <div
         className="flex relative "
         onClick={() => {
@@ -33,8 +30,8 @@ export function UserComponent({ user }: UserProps) {
         }}
       >
         <div
-          className="h-16 w-16 cursor-pointer bg-gray-300 rounded-full flex justify-center items-center overflow-hidden 
-         md:h-16 md:w-16 mr-5 absolute bottom-[5.0rem] md:relative md:bottom-0"
+          className="h-[70px] w-[70px] md:w-[80px] md:h-[80px] cursor-pointer bg-gray-200 rounded-full flex justify-center items-center overflow-hidden 
+         mr-5 absolute bottom-[5.0rem] md:relative md:bottom-0 mb-1"
         >
           {user.avatar ? (
             <img
@@ -55,7 +52,7 @@ export function UserComponent({ user }: UserProps) {
         >
           <div className="flex justify-start items-center  space-x-4 ">
             <>
-              <p className="text cursor-pointer  font-semibold text-[16px] md:text-[20px] text-desaturatedDarkCyan">
+              <p className="text cursor-pointer   text-[16px] md:text-[20px] text-desaturatedDarkCyan">
                 {user?.username}
               </p>
             </>
@@ -63,8 +60,10 @@ export function UserComponent({ user }: UserProps) {
           <p className="font-bold text-[20px] text-start cursor-pointer ">
             {user?.level} {user?.area}
           </p>
-          <div className="flex space-x-3 text-[12px] text-darkGrayishYan font-semibolds">
-            {user?.email} -
+          <div className="flex space-x-1 text-[12px] text-darkGrayishYan font-semibolds">
+            <p>{user?.email}</p>
+            <p>- </p>
+            <p> {user?.Country?.name}</p>
           </div>
         </div>
       </div>
@@ -78,6 +77,6 @@ export function UserComponent({ user }: UserProps) {
           borderSkills={true}
         />
       </div>
-    </div>
+    </CardComponent>
   );
 }

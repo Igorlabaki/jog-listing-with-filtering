@@ -28,5 +28,5 @@ export default function useErrors(){
       );
     }
 
-    return {setError, removeError, errors}
+    return {setError, removeError, errors, setErrors}
 }

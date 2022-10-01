@@ -30,7 +30,7 @@ export default function SkillsComponent({
     }
   }
 
-  const skillUser = authUser?.Skills.map((item: any) => {
+  const skillUser = authUser?.Skills?.map((item: any) => {
     return item.skill.text;
   });
 

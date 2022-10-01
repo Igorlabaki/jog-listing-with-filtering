@@ -1,17 +1,19 @@
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import { IoIosClose } from "react-icons/io";
-import useAuthContext from "../hook/useAuthContext";
-import { FormComponent } from "./form";
-import { propsAuthModal } from "./modals/authModal";
+import useAuthContext from "../../hook/useAuthContext";
+import { FormComponent } from "../form";
+import { propsAuthModal } from "../modals/authModal";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { BiLogOut } from "react-icons/bi";
 import { FiHome, FiUser } from "react-icons/fi";
 import { RiHome2Line } from "react-icons/ri";
 import Image from "next/image";
-import { ModalMenuComponent } from "./modals/modalMenu";
+import { ModalMenuComponent } from "../modals/modalMenu";
 import { destroyCookie } from "nookies";
 import { useRouter } from "next/router";
+import { BsChevronCompactLeft } from "react-icons/bs";
+import { FaReact } from "react-icons/fa";
 
 export function HeaderComponent() {
   const {
@@ -22,7 +24,7 @@ export function HeaderComponent() {
   } = useAuthContext();
 
   const ModalAuthComponent = dynamic<propsAuthModal>(() => {
-    return import("../Components/modals/authModal").then(
+    return import("../modals/authModal").then(
       (comp) => comp.ModalAuthComponent
     );
   });
@@ -42,12 +44,13 @@ export function HeaderComponent() {
   return (
     <div
       className={` ${
-        router.asPath.includes("myProfile") ? "h-[100px]" : "h-[130px]"
+        router.asPath === "/" ? "h-[130px]" : "h-[100px] md:h-[95px]"
       } bg-desaturatedDarkCyan w-full static  flex flex-col justify-end  items-between`}
     >
       <div className="flex w-[90%] lg:w-[80%] m-auto justify-between items-end">
         <div
-          className="w-[250px] h-[60px] relative ml-[-1rem] cursor-pointer"
+          className={`
+          w-[250px] h-[60px] relative ml-[-1rem] cursor-pointer`}
           onClick={() => router.push("/")}
         >
           <Image
@@ -65,13 +68,17 @@ export function HeaderComponent() {
           >
             {authUser?.avatar ? (
               <div
-                className={`${router.asPath === "/" && " md:bottom-2 "}
-              h-20 w-20 md:h-24 md:w-24 cursor-pointer relative `}
+                className={`rounded-full overflow-hidden h-[60px] w-[60px] md:h-16 md:w-16
+                ${router.asPath === "/" && " md:bottom-2 "}
+               cursor-pointer relative `}
               >
                 <img
                   src={authUser?.avatar}
-                  className={`h-full w-full relative z-10 ${
-                    router.asPath.includes("myProfile") && "mt-[10px] md:mt-0"
+                  className={`h-full w-full relative z-10 rounded-full ${
+                    router.asPath.includes("myProfile") ||
+                    router.asPath.includes("company")
+                      ? ""
+                      : null
                   }`}
                   alt="user avatar"
                 />
@@ -93,7 +100,9 @@ export function HeaderComponent() {
                   text-sm  text-desaturatedDarkCyan
                   "
                 >
-                  <p className=" py-2 px-3">Hello, {authUser.username}.</p>
+                  <p className=" py-2 px-3">
+                    Hello, {authUser?.username || authUser.name} !
+                  </p>
                   <hr className="text-darkGrayishYan w-full" />
                   <ul className="w-full">
                     <li
@@ -115,14 +124,29 @@ export function HeaderComponent() {
                      hover:bg-LightGrayishCyan w-full h-full 
                      py-2 px-3"
                     >
-                      <FiUser size={20} />
-                      <p
-                        onClick={() => {
-                          router.push("/myProfile");
-                        }}
-                      >
-                        My profile
-                      </p>
+                      {authUser?.userType?.includes("developer") ? (
+                        <>
+                          <FiUser size={20} />
+                          <p
+                            onClick={() => {
+                              router.push("/myProfile");
+                            }}
+                          >
+                            My profile
+                          </p>
+                        </>
+                      ) : (
+                        <>
+                          <FaReact size={20} />
+                          <p
+                            onClick={() => {
+                              router.push("/companyProfile");
+                            }}
+                          >
+                            Profile
+                          </p>
+                        </>
+                      )}
                     </li>
                     <li
                       className="cursor-pointer flex justify-start items-start gap-3
@@ -133,6 +157,7 @@ export function HeaderComponent() {
                       <p
                         onClick={() => {
                           destroyCookie(null, "userToken");
+                          destroyCookie(null, "companyToken");
                           window.location.reload();
                         }}
                       >

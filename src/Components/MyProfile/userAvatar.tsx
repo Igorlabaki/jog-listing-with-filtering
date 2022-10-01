@@ -6,12 +6,17 @@ import { IoIosClose } from "react-icons/io";
 import useAuthContext from "../../hook/useAuthContext";
 import { ChangePhotoModal } from "../modals/changePhotoModal";
 import { Button } from "../util/Button";
+import { FaReact } from "react-icons/fa";
 
 interface Props {
   handleOpenPhotoModal: any;
+  companyAvtar?: boolean;
 }
 
-export function UserAvatarComponent({ handleOpenPhotoModal }: Props) {
+export function UserAvatarComponent({
+  handleOpenPhotoModal,
+  companyAvtar,
+}: Props) {
   const { authUser, setAuthUser, avatar, setAvatar } = useAuthContext();
   const [changePhotoHover, setchangePhotoHover] = useState(false);
   const [isChangePhotoModalOpen, setIsChangePhotoModalOpen] = useState(false);
@@ -20,20 +25,20 @@ export function UserAvatarComponent({ handleOpenPhotoModal }: Props) {
     <div className={`absolute md:relative`}>
       <div
         className="w-[90px] h-[90px] md:w-[100px] md:h-[100px]  bg-gray-200 rounded-full flex flex-col 
-      justify-center py-3 items-center relative overflow-hidden bottom-14 left-2 lg:bottom-0 lg:left-0 shadow-lg"
+      justify-center  items-center relative overflow-hidden bottom-14 left-2 lg:bottom-0 lg:left-0 shadow-lg"
         onMouseOver={() => setchangePhotoHover(true)}
         onMouseOut={() => setchangePhotoHover(false)}
       >
         {authUser?.avatar ? (
-          <div className="h-[80px] w-[80px] md:h-16 md:w-16 cursor-pointer mt-[-26px]">
-            <img
-              src={authUser.avatar}
-              className="h-full w-full"
-              alt="user avatar"
-            />
-          </div>
+          <img
+            src={authUser.avatar}
+            className="h-full w-full"
+            alt="user avatar"
+          />
+        ) : companyAvtar ? (
+          <FaReact size={30} />
         ) : (
-          <FiUser className="text-veryDarkGraishCyan text-[30px] md:text-[60px]" />
+          <FiUser size={30} />
         )}
         <div
           className={`${changePhotoHover ? "flex" : "hidden"}

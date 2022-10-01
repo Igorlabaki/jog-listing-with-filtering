@@ -29,12 +29,6 @@ export function CountryListComponent({
     teste();
   }, []);
 
-  useEffect(() => {
-    console.log(city);
-  }, [city]);
-
-  console.log(authUser);
-
   return (
     <div className="flex space-x-7">
       <select

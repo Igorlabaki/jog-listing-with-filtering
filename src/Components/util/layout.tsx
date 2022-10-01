@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { HeaderComponent } from "../header";
+import { HeaderComponent } from "./header";
 
 interface Props {
   children: ReactNode;

@@ -16,7 +16,7 @@ export function ModalAuthComponent({ onClose, children }: propsAuthModal) {
         <div
           id="external"
           onClick={handleOutsideClick}
-          className="flex justify-center items-center w-full min-h-screen h-full fixed top-0 right-0 left-0 bottom-0 bg-black overflow-hidden opacity-60"
+          className="flex justify-center items-center w-full min-h-screen h-full absolute top-0 right-0 left-0 bottom-0 bg-black overflow-hidden opacity-60"
         />
         <div
           id="internal"

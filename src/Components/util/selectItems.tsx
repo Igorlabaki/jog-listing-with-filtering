@@ -21,14 +21,14 @@ export default function SelectItemsComponent({
     <div
       className={`w-full flex ${
         flexRow
-          ? "flex-row justify-start items-center space-x-4 py-2 mt-2  "
-          : "flex-col justify-center items-start"
+          ? "flex-row justify-start items-center space-x-4 flex-wrap"
+          : "flex-col justify-center items-start flex-wrap"
       }   
         ${handleHidden ? "flex" : "hidden"}
     `}
     >
       <p className="text-desaturatedDarkCyan   text-sm">{title}:</p>
-      <div className="flex gap-4 text-sm text-veryDarkGraishCyan font-light">
+      <div className="flex gap-4 text-sm text-veryDarkGraishCyan font-light flex-wrap">
         {listOptions.map((item) => {
           return (
             <>

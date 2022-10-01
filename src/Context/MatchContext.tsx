@@ -19,7 +19,7 @@ export const MatchContext = createContext<MatchContext>(initialState);
 
 export function MatchContextProvider({ children }: MatchContextProvider) {
   const { authUser } = useAuthContext();
-  const { job, selectJobId } = useJobContext();
+  const { job } = useJobContext();
 
   const [percentageMatch, setPercentageMatch] = useState<number>();
 

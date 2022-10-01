@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { RiCloseFill } from "react-icons/ri";
-import useJobContext from "../hook/useJobContext";
-import useSearchContext from "../hook/useSearchSContext";
+import useJobContext from "../../hook/useJobContext";
+import useSearchContext from "../../hook/useSearchSContext";
 
 export function SearchComponent() {
   const { search, setSearch } = useSearchContext();

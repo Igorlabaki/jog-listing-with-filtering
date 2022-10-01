@@ -16,7 +16,7 @@ module.exports = {
       },
       boxShadow: {
         'pattern': '0px 8px 18px 12px rgba(0,0,0,0.16)',
-        'isadora': '0px 11px 18px 4px rgba(0,0,0,0.39);',
+        'isadora': '0px 4px 13px -1px rgba(0,0,0,0.59)',
       },
       keyframes: {
         openEffect: {

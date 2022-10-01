@@ -4,11 +4,13 @@ import useAuthContext from "../../hook/useAuthContext";
 import { AuthLogin, ErrorAuth } from "../../Interfaces";
 import { Button } from "../util/Button";
 import isEmailValid from "../util/isEmailValid";
-import { Session, User } from "@prisma/client";
+import { Company, Session, User } from "@prisma/client";
 import axios from "axios";
 import { setCookie } from "nookies";
 import { v4 as uuidv4 } from "uuid";
 import SelectItemsComponent from "../util/selectItems";
+import { CountryListComponent } from "../util/countryList";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 export function FormComponent() {
   const { setError, errors, removeError } = useErrors();
@@ -18,11 +20,17 @@ export function FormComponent() {
     email: "",
     password: "",
     username: "",
+    userType: undefined,
   });
 
-  const [userType, setUserType] = useState<string>();
+  const [userType, setUserType] = useState<
+    "" | "developer" | "company" | undefined
+  >();
   const [levelType, setLevelType] = useState<string>();
   const [areaType, setAreaType] = useState<string>();
+  const [country, setCountry] = useState<any>();
+  const [ciity, setCity] = useState<any>();
+  const [showPassword, setShowPassword] = useState(false);
 
   const [modeAuthModal, setmodeAuthModal] = useState("signIn");
 
@@ -41,20 +49,28 @@ export function FormComponent() {
     }
   }
 
-  async function handleCookies(userId: string) {
+  async function handleCookies(user: any) {
     const token = uuidv4();
 
     const expire = 30 * 24 * 60 * 60;
 
-    setCookie(null, "userToken", token, {
-      maxAge: expire,
-      path: "/",
-    });
+    if (user?.userType?.includes("developer")) {
+      setCookie(null, "userToken", token, {
+        maxAge: expire,
+        path: "/",
+      });
+    } else {
+      setCookie(null, "companyToken", token, {
+        maxAge: expire,
+        path: "/",
+      });
+    }
 
     const bodySession = {
       token: token,
-      userId: userId,
+      userId: user.id,
       expire: new Date(),
+      userType: user.userType,
     };
 
     const session: Session = await axios
@@ -64,16 +80,31 @@ export function FormComponent() {
     setSession(() => session);
   }
 
-  async function signIn({ email, password }: AuthLogin) {
+  async function signIn({ email, password, userType }: AuthLogin) {
     try {
-      const user: User = await axios
-        .get(`/api/auth/${email}`)
-        .then((resp) => resp.data);
+      let user: User | Company | null = null;
 
-      const validatePassword = user.password === password;
+      if (!userType) {
+        setError({
+          field: "Type account",
+          message: `Type account is required`,
+        });
+        setTimeout(() => removeError("Type account"), 2000);
+        return;
+      }
+
+      if (userType === "developer") {
+        user = await axios.get(`/api/auth/${email}`).then((resp) => resp.data);
+      } else {
+        user = await axios
+          .get(`/api/company/${"getCompanyByEmail"}/${email}`)
+          .then((resp) => resp.data);
+      }
+
+      const validatePassword = user?.password === password.toString();
 
       if (validatePassword) {
-        handleCookies(user.id);
+        handleCookies(user);
         setAuthUser(() => user);
         handleCloseAuthModal();
       } else {
@@ -124,15 +155,25 @@ export function FormComponent() {
       setTimeout(() => removeError("Password lenght"), 2000);
       return;
     }
+
     try {
       const inputData = {
         ...authLogin,
       };
-      const user: User = await axios
-        .post(`/api/auth`, inputData)
-        .then((resp) => resp.data);
-      handleCookies(user.id);
-      setAuthUser(() => user);
+
+      if (userType.includes("developer")) {
+        const user: User = await axios
+          .post(`/api/auth`, inputData)
+          .then((resp) => resp.data);
+        handleCookies(user);
+        setAuthUser(() => user);
+      } else {
+        const company: Company = await axios
+          .post(`/api/company`, inputData)
+          .then((resp) => resp.data);
+        handleCookies(company);
+        setAuthUser(() => company);
+      }
       handleCloseAuthModal();
     } catch (error) {
       setError({
@@ -160,6 +201,8 @@ export function FormComponent() {
       userType: userType,
       levelType: levelType,
       areaType: areaType,
+      country: country,
+      city: ciity,
     }));
   }, [userType, areaType, levelType]);
 
@@ -231,26 +274,34 @@ export function FormComponent() {
           value={authLogin.username}
           onChange={(e) => handleChange(e)}
         />
-        <input
-          required
-          type="password"
-          name="password"
-          className={`${
-            errors.find(
-              (item) => item.field.toLocaleLowerCase() === "password"
-            ) && "border-2 border-red-300"
-          }
-          outline-none border-0 bg-LightGrayishCyan shadow-lg h-8 rounded-lg w-full px-3 py-1`}
-          placeholder="Enter your password"
-          value={authLogin.password}
-          onChange={(e) => handleChange(e)}
-        />
+        <div className="bg-LightGrayishCyan flex justify-between items-center  rounded-lg shadow-lg px-3  py-1">
+          <input
+            required
+            type={showPassword ? "text" : "password"}
+            name="password"
+            className={`${
+              errors.find(
+                (item) => item.field.toLocaleLowerCase() === "password"
+              ) && "border-2 border-red-300"
+            }
+            outline-none border-0 bg-transparent  h-8 w-full `}
+            placeholder="Enter your password"
+            value={authLogin.password}
+            onChange={(e) => handleChange(e)}
+          />
+          <div
+            className="text-desaturatedDarkCyan cursor-pointer"
+            onClick={() => setShowPassword(() => !showPassword)}
+          >
+            {showPassword ? <AiFillEye /> : <AiFillEyeInvisible />}
+          </div>
+        </div>
         <SelectItemsComponent
           title="Type account"
           type={userType}
           setType={setUserType}
           listOptions={["developer", "company"]}
-          handleHidden={modeSignUp}
+          handleHidden={true}
         />
         <SelectItemsComponent
           title="Select your level"
